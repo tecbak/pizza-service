@@ -1,11 +1,7 @@
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ua.rd.pizzaservice.domain.Order;
-import ua.rd.pizzaservice.repository.OrderRepository;
-import ua.rd.pizzaservice.repository.PizzaRepository;
 import ua.rd.pizzaservice.services.OrderService;
-import ua.rd.pizzaservice.services.PizzaService;
-import ua.rd.pizzaservice.services.SomeService;
 
 import java.util.Arrays;
 
@@ -28,18 +24,24 @@ public class SpringAppRunner {
 //        System.out.println(pizzaRepository.find(1));
 //
 //        OrderRepository orderRepository = repoContext.getBean("orderRepository", OrderRepository.class);
-//        OrderService orderService = repoContext.getBean("orderService", OrderService.class);
+        OrderService orderService = appContext.getBean("orderService", OrderService.class);
 //        PizzaService pizzaService = repoContext.getBean("pizzaService", PizzaService.class);
 //
 //        Order order = orderService.placeNewOrder(null, 1, 2, 3);
 //        System.out.println(order);
 
 
+//        ((SimpleOrderService)orderService).setApplicationContext(appContext);
+        Order order = orderService.placeNewOrder(null, 1, 2, 3);
 
+        System.out.println(orderService.getClass());
+        System.out.println(order);
+
+        for (String s : appContext.getBeanDefinitionNames()) {
+            System.out.println(s);
+        }
 
         appContext.close();
         repoContext.close();
-
-
     }
 }

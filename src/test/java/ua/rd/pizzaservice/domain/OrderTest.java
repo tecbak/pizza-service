@@ -55,4 +55,9 @@ public class OrderTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void setStatusTest() throws Exception {
+
+    }
 }

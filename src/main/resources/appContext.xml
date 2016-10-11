@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--<context:annotation-config/>-->
+    <context:component-scan base-package="ua.rd.pizzaservice.services"/>
+    <context:component-scan base-package="ua.rd.pizzaservice.domain"/>
 
     <bean name="orderService" class="ua.rd.pizzaservice.services.SimpleOrderService">
-        <constructor-arg ref="pizzaService"/>
-        <constructor-arg ref="orderRepository"/>
+        <lookup-method name="createNewOrder" bean="order"/>
+        <!--<constructor-arg ref="pizzaService"/>
+        <constructor-arg ref="orderRepository"/>-->
     </bean>
 
-    <bean name="pizzaService" class="ua.rd.pizzaservice.services.SimplePizzaService">
-        <constructor-arg ref="pizzaRepository"/>
-    </bean>
+    <bean class="ua.rd.pizzaservice.infrastructure.BenchmarkBeanPostProcessor"/>
 
-    <bean class="ua.rd.pizzaservice.services.UsageSomeService" init-method="init">
-        <constructor-arg>
-            <!--<ref parent="t1"/>-->
-            <bean class="ua.rd.pizzaservice.services.Test2SomeService"/>
-        </constructor-arg>
-    </bean>
+    <!--<bean name="pizzaService" class="ua.rd.pizzaservice.services.SimplePizzaService" autowire="constructor">
+        &lt;!&ndash;<constructor-arg ref="pizzaRepository"/>&ndash;&gt;
+    </bean>-->
 
-    <bean name="t1" class="ua.rd.pizzaservice.services.Test2SomeService"/>
-    <!--<bean name="t2" class="ua.rd.pizzaservice.services.Test1SomeService"/>-->
+    <!--<bean name="order" class="ua.rd.pizzaservice.domain.Order" scope="prototype" />-->
+
+    <!--    <bean class="ua.rd.pizzaservice.services.UsageSomeService" init-method="init">
+            <constructor-arg>
+                &lt;!&ndash;<ref parent="t1"/>&ndash;&gt;
+                <bean class="ua.rd.pizzaservice.services.Test2SomeService"/>
+            </constructor-arg>
+        </bean>
+
+        <bean name="t1" class="ua.rd.pizzaservice.services.Test2SomeService"/>
+        &lt;!&ndash;<bean name="t2" class="ua.rd.pizzaservice.services.Test1SomeService"/>&ndash;&gt;-->
 
 </beans>

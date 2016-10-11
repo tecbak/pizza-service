@@ -1,19 +1,30 @@
 package ua.rd.pizzaservice.domain;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.util.List;
 
+@Component
+@Scope(scopeName = "prototype")
 public class Order {
-    public static final BigDecimal DISCOUNT_RATE = BigDecimal.valueOf(0.3);
+    private static final BigDecimal DISCOUNT_RATE = BigDecimal.valueOf(0.3);
     private Long id;
     private Customer customer;
     private List<Pizza> pizzas;
+    private Statuses status = Statuses.NEW;
+
+    /*Constructor*/
+    public Order() {
+    }
 
     public Order(Customer customer, List<Pizza> pizzas) {
         this.customer = customer;
         this.pizzas = pizzas;
     }
 
+    /*Getters and setters*/
     public Long getId() {
         return id;
     }
@@ -38,7 +49,18 @@ public class Order {
         this.pizzas = pizzas;
     }
 
+    public Statuses getStatus() {
+        return status;
+    }
 
+    private void setStatus(Statuses status) {
+        if (!this.status.isAvailableChange(status))
+            throw new IllegalArgumentException("Can't change status from " + this.status + " to " + status);
+
+        this.status = status;
+    }
+
+    /*Methods*/
     @Override
     public String toString() {
         return "Order{" +
@@ -79,4 +101,5 @@ public class Order {
 
         return max;
     }
+
 }
