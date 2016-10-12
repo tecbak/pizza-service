@@ -53,7 +53,7 @@ public class Order {
         return status;
     }
 
-    private void setStatus(Statuses status) {
+    public void setStatus(Statuses status) {
         if (!this.status.isAvailableChange(status))
             throw new IllegalArgumentException("Can't change status from " + this.status + " to " + status);
 

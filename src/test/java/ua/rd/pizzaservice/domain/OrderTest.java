@@ -58,6 +58,13 @@ public class OrderTest {
 
     @Test
     public void setStatusTest() throws Exception {
+        order.setStatus(Statuses.IN_PROGRESS);
+        order.setStatus(Statuses.DONE);
+    }
 
+    @Test(expected = RuntimeException.class)
+    public void onSettingStatusInProgressAfterStatusCancelled_throwException() throws Exception {
+        order.setStatus(Statuses.CANCELLED);
+        order.setStatus(Statuses.IN_PROGRESS);
     }
 }
