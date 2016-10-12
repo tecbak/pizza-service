@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+
 @Repository
 public class InMemPizzaRepository implements PizzaRepository {
     private Map<Integer, Pizza> pizzas = new HashMap<>();
@@ -20,7 +21,7 @@ public class InMemPizzaRepository implements PizzaRepository {
         pizzas.put(3, new Pizza(3L, "Sea", BigDecimal.valueOf(100), Type.SEA));
     }
 
-    @Benchmark
+    @Benchmark(false)
     @Override
     public Pizza find(Integer id) {
         return pizzas.get(id);

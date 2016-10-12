@@ -13,7 +13,7 @@ public class BenchmarkBeanPostProcessor implements BeanPostProcessor {
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
 //        Method[] methods = bean.getClass().getMethods();
-//        if (isAnyMethodAnnotatedWith(methods, Benchmark.class)) {
+//        if (isBenchmarkAnnotatationPresent(methods, Benchmark.class)) {
 //            Class<?> clazz = bean.getClass();
 //            Class<?>[] interfaces = getAllDeclaredInterfaces(bean);
 //            ClassLoader loader = clazz.getClassLoader();
@@ -59,10 +59,13 @@ public class BenchmarkBeanPostProcessor implements BeanPostProcessor {
         return interfaces.stream().toArray(Class<?>[]::new);
     }
 
-    private boolean isAnyMethodAnnotatedWith(Method[] methods, Class<? extends Annotation> annotation) {
+    private boolean isBenchmarkAnnotatationPresent(Method[] methods) {
         for (Method method : methods) {
-            if (method.isAnnotationPresent(annotation)) {
-                return true;
+            if (method.isAnnotationPresent(Benchmark.class)) {
+                Benchmark annotation = method.getAnnotation(Benchmark.class);
+                if (annotation.value()) {
+                    return true;
+                }
             }
         }
         return false;
@@ -71,7 +74,7 @@ public class BenchmarkBeanPostProcessor implements BeanPostProcessor {
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         Method[] methods = bean.getClass().getMethods();
-        if (isAnyMethodAnnotatedWith(methods, Benchmark.class)) {
+        if (isBenchmarkAnnotatationPresent(methods) ) {
             Class<?> clazz = bean.getClass();
             Class<?>[] interfaces = getAllDeclaredInterfaces(bean);
             ClassLoader loader = clazz.getClassLoader();

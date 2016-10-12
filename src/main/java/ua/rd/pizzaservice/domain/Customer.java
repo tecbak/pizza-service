@@ -1,9 +1,18 @@
 package ua.rd.pizzaservice.domain;
 
+import java.math.BigDecimal;
+
 public class Customer {
     private int id;
     private String name;
+    private String address;
+    private LoyaltyCard loyaltyCard = new LoyaltyCard();
 
+    private class LoyaltyCard {
+
+    }
+
+    /*Getters and setters*/
     public int getId() {
         return id;
     }
@@ -18,5 +27,19 @@ public class Customer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    /*Methods*/
+    public BigDecimal useLoyaltyCard(BigDecimal payment) {
+
+        return null; // TODO: 12-Oct-16 stub
     }
 }
