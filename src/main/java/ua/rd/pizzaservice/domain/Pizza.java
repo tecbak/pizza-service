@@ -1,8 +1,12 @@
 package ua.rd.pizzaservice.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 
+@Entity
 public class Pizza {
+    @Id
     private Long id;
     private String name;
     private BigDecimal price;
@@ -13,6 +17,9 @@ public class Pizza {
         this.name = name;
         this.price = price;
         this.type = type;
+    }
+
+    public Pizza() {
     }
 
     public Long getId() {

@@ -3,7 +3,6 @@ package ua.rd.pizzaservice.infrastructure;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +12,7 @@ public class BenchmarkBeanPostProcessor implements BeanPostProcessor {
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
 //        Method[] methods = bean.getClass().getMethods();
-//        if (isBenchmarkAnnotatationPresent(methods, Benchmark.class)) {
+//        if (isBenchmarkAnnotationPresent(methods, Benchmark.class)) {
 //            Class<?> clazz = bean.getClass();
 //            Class<?>[] interfaces = getAllDeclaredInterfaces(bean);
 //            ClassLoader loader = clazz.getClassLoader();
@@ -59,7 +58,7 @@ public class BenchmarkBeanPostProcessor implements BeanPostProcessor {
         return interfaces.stream().toArray(Class<?>[]::new);
     }
 
-    private boolean isBenchmarkAnnotatationPresent(Method[] methods) {
+    private boolean isBenchmarkAnnotationPresent(Method[] methods) {
         for (Method method : methods) {
             if (method.isAnnotationPresent(Benchmark.class)) {
                 Benchmark annotation = method.getAnnotation(Benchmark.class);
@@ -74,7 +73,7 @@ public class BenchmarkBeanPostProcessor implements BeanPostProcessor {
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         Method[] methods = bean.getClass().getMethods();
-        if (isBenchmarkAnnotatationPresent(methods) ) {
+        if (isBenchmarkAnnotationPresent(methods) ) {
             Class<?> clazz = bean.getClass();
             Class<?>[] interfaces = getAllDeclaredInterfaces(bean);
             ClassLoader loader = clazz.getClassLoader();

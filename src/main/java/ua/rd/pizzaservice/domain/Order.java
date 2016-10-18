@@ -5,14 +5,16 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @Component
 @Scope(scopeName = "prototype")
 public class Order {
     private static final BigDecimal DISCOUNT_RATE = BigDecimal.valueOf(0.3);
+
     private Long id;
     private Customer customer;
-    private List<Pizza> pizzas;
+    private Map<Pizza, Integer> pizzas;
     private Statuses status = Statuses.NEW;
 
     /*Constructor*/
@@ -21,8 +23,9 @@ public class Order {
 
     public Order(Customer customer, List<Pizza> pizzas) {
         this.customer = customer;
-        this.pizzas = pizzas;
+        setPizzas(pizzas);
     }
+
 
     /*Getters and setters*/
     public Long getId() {
@@ -41,12 +44,17 @@ public class Order {
         this.customer = customer;
     }
 
-    public List<Pizza> getPizzas() {
+    public Map<Pizza, Integer> getPizzas() {
         return pizzas;
     }
 
     public void setPizzas(List<Pizza> pizzas) {
-        this.pizzas = pizzas;
+        for (Pizza pizza : pizzas) {
+            if (this.pizzas.containsKey(pizza)) {
+                int quantity = this.pizzas.get(pizza);
+                this.pizzas.put(pizza, ++quantity);
+            }
+        }
     }
 
     public Statuses getStatus() {
@@ -54,10 +62,13 @@ public class Order {
     }
 
     public void setStatus(Statuses status) {
+        checkAvailableChange(status);
+        this.status = status;
+    }
+
+    private void checkAvailableChange(Statuses status) {
         if (!this.status.isAvailableChange(status))
             throw new IllegalArgumentException("Can't change status from " + this.status + " to " + status);
-
-        this.status = status;
     }
 
     /*Methods*/
@@ -72,8 +83,13 @@ public class Order {
 
     public BigDecimal getPrice() {
         BigDecimal sum = BigDecimal.ZERO;
-        for (Pizza pizza : pizzas) {
-            sum = sum.add(pizza.getPrice());
+        for (Map.Entry<Pizza, Integer> entry : pizzas.entrySet()) {
+            Pizza pizza = entry.getKey();
+            BigDecimal price = pizza.getPrice();
+            Integer quantity = entry.getValue();
+
+            BigDecimal subSum = price.multiply(BigDecimal.valueOf(quantity));
+            sum = sum.add(subSum);
         }
         return sum;
     }
@@ -92,14 +108,11 @@ public class Order {
 
     private BigDecimal maxPrice() {
         BigDecimal max = BigDecimal.ZERO;
-
-        for (Pizza pizza : pizzas) {
+        for (Pizza pizza : pizzas.keySet()) {
             if (pizza.getPrice().compareTo(max) > 0) {
                 max = pizza.getPrice();
             }
         }
-
         return max;
     }
-
 }
