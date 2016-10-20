@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ public class Order {
 
     private Long id;
     private Customer customer;
-    private Map<Pizza, Integer> pizzas;
+    private Map<Pizza, Integer> pizzas = new HashMap<>();
     private Statuses status = Statuses.NEW;
 
     /*Constructor*/
@@ -25,7 +26,6 @@ public class Order {
         this.customer = customer;
         setPizzas(pizzas);
     }
-
 
     /*Getters and setters*/
     public Long getId() {
@@ -52,7 +52,9 @@ public class Order {
         for (Pizza pizza : pizzas) {
             if (this.pizzas.containsKey(pizza)) {
                 int quantity = this.pizzas.get(pizza);
-                this.pizzas.put(pizza, ++quantity);
+                this.pizzas.put(pizza, quantity + 1);
+            } else {
+                this.pizzas.put(pizza, 1);
             }
         }
     }
@@ -95,11 +97,19 @@ public class Order {
     }
 
     public BigDecimal getDiscount() {
-        if (pizzas.size() < 4) {
+        if (size() < 4) {
             return BigDecimal.ZERO;
         } else {
             return calculateDiscount();
         }
+    }
+
+    private int size() {
+        int size = 0;
+        for (int quantity : pizzas.values()) {
+            size += quantity;
+        }
+        return size;
     }
 
     private BigDecimal calculateDiscount() {

@@ -8,7 +8,16 @@ public class Customer {
     private String address;
     private LoyaltyCard loyaltyCard = new LoyaltyCard();
 
-    private class LoyaltyCard {
+    private static class LoyaltyCard {
+        private BigDecimal amount = BigDecimal.ZERO;
+
+        private void deposit(BigDecimal sum) {
+            amount = amount.add(sum);
+        }
+
+        private void withdraw(BigDecimal sum) {
+            amount = amount.subtract(sum);
+        }
 
     }
 
