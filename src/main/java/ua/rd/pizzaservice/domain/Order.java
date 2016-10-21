@@ -83,18 +83,27 @@ public class Order {
                 '}';
     }
 
-    public BigDecimal getPrice() {
+
+    public BigDecimal getPrice(boolean useLoyaltyCard) {
         BigDecimal sum = BigDecimal.ZERO;
         for (Map.Entry<Pizza, Integer> entry : pizzas.entrySet()) {
-            Pizza pizza = entry.getKey();
-            BigDecimal price = pizza.getPrice();
-            Integer quantity = entry.getValue();
-
-            BigDecimal subSum = price.multiply(BigDecimal.valueOf(quantity));
-            sum = sum.add(subSum);
+            sum = totalPriceOfOneTypeOfPizza(entry).add(sum);
         }
-        return sum;
+        if (useLoyaltyCard) {
+            return customer.useLoyaltyCard(sum);
+        } else {
+            return sum;
+        }
     }
+
+    private BigDecimal totalPriceOfOneTypeOfPizza(Map.Entry<Pizza, Integer> entry) {
+        Pizza pizza = entry.getKey();
+
+        BigDecimal price = pizza.getPrice();
+        Integer quantity = entry.getValue();
+        return  price.multiply(BigDecimal.valueOf(quantity));
+    }
+
 
     public BigDecimal getDiscount() {
         if (size() < 4) {
@@ -103,6 +112,7 @@ public class Order {
             return calculateDiscount();
         }
     }
+
 
     private int size() {
         int size = 0;

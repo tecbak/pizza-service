@@ -10,13 +10,20 @@ public class Customer {
 
     private static class LoyaltyCard {
         private BigDecimal amount = BigDecimal.ZERO;
+        private BigDecimal withdrawLimit = BigDecimal.valueOf(0.10);
 
         private void deposit(BigDecimal sum) {
             amount = amount.add(sum);
         }
 
-        private void withdraw(BigDecimal sum) {
-            amount = amount.subtract(sum);
+        private BigDecimal withdraw(BigDecimal sum) {
+            if (amount.compareTo(sum) < 0) {
+                amount = BigDecimal.ZERO;
+                return amount;
+            } else {
+                amount = amount.subtract(sum);
+                return sum;
+            }
         }
 
     }
@@ -48,7 +55,10 @@ public class Customer {
 
     /*Methods*/
     public BigDecimal useLoyaltyCard(BigDecimal payment) {
-
-        return null; // TODO: 12-Oct-16 stub
+        BigDecimal discount = loyaltyCard.withdraw(payment);
+        BigDecimal paymentWithDiscount = payment.subtract(discount);
+        return paymentWithDiscount;
     }
+
+
 }

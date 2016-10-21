@@ -3,6 +3,7 @@ package ua.rd.pizzaservice.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Service;
 import ua.rd.pizzaservice.domain.Customer;
 import ua.rd.pizzaservice.domain.Order;
 import ua.rd.pizzaservice.domain.Pizza;

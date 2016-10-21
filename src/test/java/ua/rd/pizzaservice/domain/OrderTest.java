@@ -43,7 +43,7 @@ public class OrderTest {
         BigDecimal expected = sea.getPrice(). //multiply(BigDecimal.valueOf(0.7)).
                 add(pizza.getPrice().add(pizza.getPrice()).
                 add(meat.getPrice()).add(meat.getPrice()));
-        BigDecimal actual = order.getPrice();
+        BigDecimal actual = order.getPrice(false);
 
         assertEquals(expected, actual);
     }
