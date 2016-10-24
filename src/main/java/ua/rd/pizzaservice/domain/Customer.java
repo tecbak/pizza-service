@@ -9,23 +9,21 @@ public class Customer {
     private LoyaltyCard loyaltyCard = new LoyaltyCard();
 
     private static class LoyaltyCard {
+        private static final BigDecimal discountRate = BigDecimal.valueOf(0.1);  //percent of amount
+        private static final BigDecimal discountLimit = BigDecimal.valueOf(0.3); //percent of payment
+
         private BigDecimal amount = BigDecimal.ZERO;
-        private BigDecimal withdrawLimit = BigDecimal.valueOf(0.10);
 
-        private void deposit(BigDecimal sum) {
-            amount = amount.add(sum);
-        }
+        public BigDecimal depositAndGetDiscount(BigDecimal payment) {
+            BigDecimal discount = discountRate.multiply(payment);
+            BigDecimal limit = discountLimit.multiply(payment);
 
-        private BigDecimal withdraw(BigDecimal sum) {
-            if (amount.compareTo(sum) < 0) {
-                amount = BigDecimal.ZERO;
-                return amount;
-            } else {
-                amount = amount.subtract(sum);
-                return sum;
+            if (discount.compareTo(limit) > 0) {
+                discount = limit;
             }
+            amount = amount.add(payment).subtract(discount);
+            return discount;
         }
-
     }
 
     /*Getters and setters*/
@@ -54,11 +52,7 @@ public class Customer {
     }
 
     /*Methods*/
-    public BigDecimal useLoyaltyCard(BigDecimal payment) {
-        BigDecimal discount = loyaltyCard.withdraw(payment);
-        BigDecimal paymentWithDiscount = payment.subtract(discount);
-        return paymentWithDiscount;
+    public BigDecimal depositAndGetLoyaltyCardDiscount(BigDecimal payment) {
+        return loyaltyCard.depositAndGetDiscount(payment);
     }
-
-
 }

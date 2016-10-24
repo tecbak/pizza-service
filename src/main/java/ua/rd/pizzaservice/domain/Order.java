@@ -18,6 +18,11 @@ public class Order {
     private Map<Pizza, Integer> pizzas = new HashMap<>();
     private Statuses status = Statuses.NEW;
 
+    private BigDecimal price;
+    private BigDecimal priceWithDiscounts;
+    private BigDecimal quantityDiscount;
+    private BigDecimal loyaltyCardDiscount;
+
     /*Constructor*/
     public Order() {
     }
@@ -83,17 +88,31 @@ public class Order {
                 '}';
     }
 
+    public BigDecimal getPriceWithDiscounts() {
+        if (priceWithDiscounts == null) {
+            priceWithDiscounts = calculatePriceWithDiscounts();
+        }
+        return priceWithDiscounts;
+    }
 
-    public BigDecimal getPrice(boolean useLoyaltyCard) {
+    private BigDecimal calculatePriceWithDiscounts() {
+        BigDecimal totalDiscount = getQuantityDiscount().add(getLoyaltyCardDiscount());
+        return getPrice().subtract(totalDiscount);
+    }
+
+    public BigDecimal getPrice() {
+        if (price == null) {
+            price = calculatePrice();
+        }
+        return price;
+    }
+
+    private BigDecimal calculatePrice() {
         BigDecimal sum = BigDecimal.ZERO;
         for (Map.Entry<Pizza, Integer> entry : pizzas.entrySet()) {
             sum = totalPriceOfOneTypeOfPizza(entry).add(sum);
         }
-        if (useLoyaltyCard) {
-            return customer.useLoyaltyCard(sum);
-        } else {
-            return sum;
-        }
+        return sum;
     }
 
     private BigDecimal totalPriceOfOneTypeOfPizza(Map.Entry<Pizza, Integer> entry) {
@@ -101,18 +120,30 @@ public class Order {
 
         BigDecimal price = pizza.getPrice();
         Integer quantity = entry.getValue();
-        return  price.multiply(BigDecimal.valueOf(quantity));
+        return price.multiply(BigDecimal.valueOf(quantity));
     }
 
+    public BigDecimal getQuantityDiscount() {
+        if (quantityDiscount == null) {
+            quantityDiscount = calculateDiscount();
+        }
+        return quantityDiscount;
+    }
 
-    public BigDecimal getDiscount() {
+    public BigDecimal getLoyaltyCardDiscount() {
+        if (loyaltyCardDiscount == null) {
+            loyaltyCardDiscount = customer.depositAndGetLoyaltyCardDiscount(getPrice());
+        }
+        return loyaltyCardDiscount;
+    }
+
+    private BigDecimal calculateDiscount() {
         if (size() < 4) {
             return BigDecimal.ZERO;
         } else {
-            return calculateDiscount();
+            return maxPrice().multiply(DISCOUNT_RATE);
         }
     }
-
 
     private int size() {
         int size = 0;
@@ -120,10 +151,6 @@ public class Order {
             size += quantity;
         }
         return size;
-    }
-
-    private BigDecimal calculateDiscount() {
-        return maxPrice().multiply(DISCOUNT_RATE);
     }
 
     private BigDecimal maxPrice() {
