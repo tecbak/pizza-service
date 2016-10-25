@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-@Repository
+//@Repository
 public class InMemPizzaRepository implements PizzaRepository {
     private Map<Integer, Pizza> pizzas = new HashMap<>();
 
@@ -25,5 +25,10 @@ public class InMemPizzaRepository implements PizzaRepository {
     @Override
     public Pizza find(Integer id) {
         return pizzas.get(id);
+    }
+
+    @Override
+    public Pizza save(Pizza pizza) {
+        throw new UnsupportedOperationException();
     }
 }
