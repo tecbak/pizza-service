@@ -14,16 +14,37 @@ public class Customer {
 
         private BigDecimal amount = BigDecimal.ZERO;
 
-        public BigDecimal depositAndGetDiscount(BigDecimal payment) {
+        private void deposit(BigDecimal sum) {
+            amount = amount.add(sum);
+        }
+
+        private void withdraw(BigDecimal sum) {
+            amount = amount.subtract(sum);
+        }
+
+        private BigDecimal calculateDiscount(BigDecimal payment) {
             BigDecimal discount = discountRate.multiply(payment);
             BigDecimal limit = discountLimit.multiply(payment);
 
-            if (discount.compareTo(limit) > 0) {
-                discount = limit;
-            }
-            amount = amount.add(payment).subtract(discount);
-            return discount;
+            return discount.compareTo(limit) > 0 ? limit : discount;
+//            if (discount.compareTo(limit) > 0) {
+//                discount = limit;
+//            }
+//
+//            return discount;
         }
+
+//        @Deprecated
+//        public BigDecimal depositAndGetDiscount(BigDecimal payment) {
+//            BigDecimal discount = discountRate.multiply(payment);
+//            BigDecimal limit = discountLimit.multiply(payment);
+//
+//            if (discount.compareTo(limit) > 0) {
+//                discount = limit;
+//            }
+//            amount = amount.add(payment).subtract(discount);
+//            return discount;
+//        }
     }
 
     /*Getters and setters*/
@@ -52,7 +73,18 @@ public class Customer {
     }
 
     /*Methods*/
-    public BigDecimal depositAndGetLoyaltyCardDiscount(BigDecimal payment) {
-        return loyaltyCard.depositAndGetDiscount(payment);
+    public BigDecimal calculateLoyaltyCardDiscount(BigDecimal payment) {
+        return loyaltyCard.calculateDiscount(payment);
     }
+
+    public void withdrawFromLoyaltyCard(BigDecimal payment) {
+        loyaltyCard.withdraw(payment);
+    }
+
+    public void depositToLoyaltyCard(BigDecimal payment) {
+        loyaltyCard.deposit(payment);
+    }
+//    public BigDecimal depositAndGetLoyaltyCardDiscount(BigDecimal payment) {
+//        return loyaltyCard.depositAndGetDiscount(payment);
+//    }
 }

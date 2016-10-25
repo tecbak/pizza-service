@@ -17,11 +17,7 @@ public class Order {
     private Customer customer;
     private Map<Pizza, Integer> pizzas = new HashMap<>();
     private Statuses status = Statuses.NEW;
-
-    private BigDecimal price;
-    private BigDecimal priceWithDiscounts;
-    private BigDecimal quantityDiscount;
-    private BigDecimal loyaltyCardDiscount;
+    private boolean paid;
 
     /*Constructor*/
     public Order() {
@@ -79,40 +75,39 @@ public class Order {
     }
 
     /*Methods*/
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", customer=" + customer +
-                ", pizzas=" + pizzas +
-                '}';
-    }
-
-    public BigDecimal getPriceWithDiscounts() {
-        if (priceWithDiscounts == null) {
-            priceWithDiscounts = calculatePriceWithDiscounts();
-        }
-        return priceWithDiscounts;
-    }
-
-    private BigDecimal calculatePriceWithDiscounts() {
-        BigDecimal totalDiscount = getQuantityDiscount().add(getLoyaltyCardDiscount());
-        return getPrice().subtract(totalDiscount);
+    public BigDecimal getPriceWithTotalDiscount() {
+        return getPrice().subtract(getTotalDiscount());
     }
 
     public BigDecimal getPrice() {
-        if (price == null) {
-            price = calculatePrice();
-        }
-        return price;
-    }
-
-    private BigDecimal calculatePrice() {
         BigDecimal sum = BigDecimal.ZERO;
         for (Map.Entry<Pizza, Integer> entry : pizzas.entrySet()) {
             sum = totalPriceOfOneTypeOfPizza(entry).add(sum);
         }
         return sum;
+    }
+
+    public BigDecimal getTotalDiscount() {
+        return getQuantityDiscount().add(getLoyaltyCardDiscount());
+    }
+
+    public BigDecimal getQuantityDiscount() {
+        if (size() < 4) {
+            return BigDecimal.ZERO;
+        } else {
+            return maxPrice().multiply(DISCOUNT_RATE);
+        }
+    }
+
+    public BigDecimal getLoyaltyCardDiscount() {
+        BigDecimal priceWithQuantityDiscount = getPrice().subtract(getQuantityDiscount());
+        return customer.calculateLoyaltyCardDiscount(priceWithQuantityDiscount);
+    }
+
+    public void pay() {
+        customer.withdrawFromLoyaltyCard(getLoyaltyCardDiscount());
+        customer.depositToLoyaltyCard(getPriceWithTotalDiscount());
+        paid = true;
     }
 
     private BigDecimal totalPriceOfOneTypeOfPizza(Map.Entry<Pizza, Integer> entry) {
@@ -121,28 +116,6 @@ public class Order {
         BigDecimal price = pizza.getPrice();
         Integer quantity = entry.getValue();
         return price.multiply(BigDecimal.valueOf(quantity));
-    }
-
-    public BigDecimal getQuantityDiscount() {
-        if (quantityDiscount == null) {
-            quantityDiscount = calculateDiscount();
-        }
-        return quantityDiscount;
-    }
-
-    public BigDecimal getLoyaltyCardDiscount() {
-        if (loyaltyCardDiscount == null) {
-            loyaltyCardDiscount = customer.depositAndGetLoyaltyCardDiscount(getPrice());
-        }
-        return loyaltyCardDiscount;
-    }
-
-    private BigDecimal calculateDiscount() {
-        if (size() < 4) {
-            return BigDecimal.ZERO;
-        } else {
-            return maxPrice().multiply(DISCOUNT_RATE);
-        }
     }
 
     private int size() {
@@ -161,5 +134,14 @@ public class Order {
             }
         }
         return max;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", customer=" + customer +
+                ", pizzas=" + pizzas +
+                '}';
     }
 }
