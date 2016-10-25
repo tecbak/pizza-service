@@ -101,11 +101,10 @@ public class Order {
 
     public BigDecimal getLoyaltyCardDiscount() {
         BigDecimal priceWithQuantityDiscount = getPrice().subtract(getQuantityDiscount());
-        return customer.calculateLoyaltyCardDiscount(priceWithQuantityDiscount);
+        return customer.getLoyaltyCardDiscount(priceWithQuantityDiscount);
     }
 
     public void pay() {
-        customer.withdrawFromLoyaltyCard(getLoyaltyCardDiscount());
         customer.depositToLoyaltyCard(getPriceWithTotalDiscount());
         paid = true;
     }
