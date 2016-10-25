@@ -23,7 +23,7 @@ public class Customer {
         }
 
         private BigDecimal calculateDiscount(BigDecimal payment) {
-            BigDecimal discount = discountRate.multiply(payment);
+            BigDecimal discount = discountRate.multiply(amount);
             BigDecimal limit = discountLimit.multiply(payment);
 
             return discount.compareTo(limit) > 0 ? limit : discount;

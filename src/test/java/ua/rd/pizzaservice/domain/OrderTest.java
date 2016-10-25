@@ -35,7 +35,7 @@ public class OrderTest {
             add(sea);
         }};
         customer = new Customer();
-        order = new Order(null, pizzas);
+        order = new Order(customer, pizzas);
     }
 
     @Test
@@ -66,5 +66,14 @@ public class OrderTest {
     public void onSettingStatusInProgressAfterStatusCancelled_throwException() throws Exception {
         order.setStatus(Statuses.CANCELLED);
         order.setStatus(Statuses.IN_PROGRESS);
+    }
+
+    @Test
+    public void getPriceWithDiscountsTest() {
+        customer.depositToLoyaltyCard(BigDecimal.valueOf(2000));
+
+        System.out.println(order.getTotalDiscount());
+        System.out.println(order.getLoyaltyCardDiscount());
+        System.out.println(order.getQuantityDiscount());
     }
 }
