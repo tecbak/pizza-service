@@ -105,6 +105,7 @@ public class Order {
     }
 
     public void pay() {
+        if (paid) throw new IllegalStateException("Order is already paid");
         customer.depositToLoyaltyCard(getPriceWithTotalDiscount());
         paid = true;
     }
