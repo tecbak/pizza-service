@@ -1,7 +1,5 @@
 package ua.rd.pizzaservice.domain;
 
-import ua.rd.pizzaservice.domain.customer.Customer;
-
 import java.util.ArrayList;
 import java.util.List;
 

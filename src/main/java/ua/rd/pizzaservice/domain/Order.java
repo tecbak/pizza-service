@@ -2,7 +2,6 @@ package ua.rd.pizzaservice.domain;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import ua.rd.pizzaservice.domain.customer.Customer;
 import ua.rd.pizzaservice.domain.discount.Discount;
 
 import java.math.BigDecimal;
