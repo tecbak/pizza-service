@@ -2,6 +2,7 @@ package ua.rd.pizzaservice.domain;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import ua.rd.pizzaservice.domain.customer.Customer;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -118,7 +119,7 @@ public class Order {
         return price.multiply(BigDecimal.valueOf(quantity));
     }
 
-    private int size() {
+    public int size() {
         int size = 0;
         for (int quantity : pizzas.values()) {
             size += quantity;

@@ -1,12 +1,10 @@
-import ua.rd.pizzaservice.domain.Customer;
+import ua.rd.pizzaservice.domain.customer.Customer;
 import ua.rd.pizzaservice.domain.Order;
 import ua.rd.pizzaservice.infrastructure.ApplicationContext;
-import ua.rd.pizzaservice.infrastructure.Config;
 import ua.rd.pizzaservice.infrastructure.Context;
 import ua.rd.pizzaservice.infrastructure.JavaConfig;
 import ua.rd.pizzaservice.repository.PizzaRepository;
 import ua.rd.pizzaservice.services.OrderService;
-import ua.rd.pizzaservice.services.SimpleOrderService;
 
 public class PizzaApp {
     public static void main(String[] args) {

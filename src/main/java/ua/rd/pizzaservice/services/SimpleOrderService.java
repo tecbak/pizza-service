@@ -1,14 +1,10 @@
 package ua.rd.pizzaservice.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Service;
-import ua.rd.pizzaservice.domain.Customer;
+import ua.rd.pizzaservice.domain.customer.Customer;
 import ua.rd.pizzaservice.domain.Order;
 import ua.rd.pizzaservice.domain.Pizza;
 import ua.rd.pizzaservice.infrastructure.Benchmark;
-import ua.rd.pizzaservice.repository.InMemOrderRepository;
 import ua.rd.pizzaservice.repository.OrderRepository;
 
 import java.util.ArrayList;

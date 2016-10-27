@@ -2,6 +2,7 @@ package ua.rd.pizzaservice.domain;
 
 import org.junit.Before;
 import org.junit.Test;
+import ua.rd.pizzaservice.domain.customer.Customer;
 import ua.rd.pizzaservice.repository.InMemPizzaRepository;
 import ua.rd.pizzaservice.repository.PizzaRepository;
 
