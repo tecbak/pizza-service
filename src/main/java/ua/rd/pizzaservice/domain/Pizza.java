@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 @Entity
 public class Pizza {
-    //analog - sequense
+    //analog - sequence
     @TableGenerator(name = "Pizza_Gen",
             table = "ID_GEN",
             pkColumnName = "Gen_name",

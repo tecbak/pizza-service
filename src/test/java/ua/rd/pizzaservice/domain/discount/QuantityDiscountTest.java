@@ -13,6 +13,7 @@ import ua.rd.pizzaservice.domain.Type;
 import java.math.BigDecimal;
 import java.util.HashMap;
 
+import static java.math.BigDecimal.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
@@ -26,15 +27,15 @@ public class QuantityDiscountTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        quantityDiscount = new QuantityDiscount();
-        price = BigDecimal.TEN;
+        quantityDiscount = new QuantityDiscount(4, valueOf(0.3));
+        price = TEN;
     }
 
     @Test
     public void testOnQuantityLessThen4_noDiscount() throws Exception {
         when(order.size()).thenReturn(3);
 
-        BigDecimal expected = BigDecimal.ZERO;
+        BigDecimal expected = ZERO;
         BigDecimal actual = quantityDiscount.calculate(order, price);
 
         assertEquals(expected, actual);
@@ -44,13 +45,13 @@ public class QuantityDiscountTest {
     public void testOnQuantity4AndMore_calculateDiscount() throws Exception {
         when(order.size()).thenReturn(6);
         when(order.getPizzas()).thenReturn(new HashMap<Pizza, Integer>() {{
-            put(new Pizza(1L, "Vegetarian", BigDecimal.valueOf(60), Type.VEGETARIAN), 1);
-            put(new Pizza(2L, "Meat", BigDecimal.valueOf(80), Type.MEAT), 2);
-            put(new Pizza(3L, "Sea", BigDecimal.valueOf(100), Type.SEA), 3);
+            put(new Pizza(1L, "Vegetarian", valueOf(60), Type.VEGETARIAN), 1);
+            put(new Pizza(2L, "Meat", valueOf(80), Type.MEAT), 2);
+            put(new Pizza(3L, "Sea", valueOf(100), Type.SEA), 3);
         }});
 
 
-        BigDecimal expected = BigDecimal.valueOf(30.0);
+        BigDecimal expected = valueOf(30.0);
         BigDecimal actual = quantityDiscount.calculate(order, price);
         assertEquals(expected, actual);
     }

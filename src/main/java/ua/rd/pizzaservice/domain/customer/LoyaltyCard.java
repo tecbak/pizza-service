@@ -12,6 +12,10 @@ class LoyaltyCard {
         amount = amount.add(sum);
     }
 
+    BigDecimal getBalance() {
+        return amount;
+    }
+
     BigDecimal calculateDiscount(BigDecimal payment) {
         BigDecimal discount = discountRate.multiply(amount);
         BigDecimal limit = discountLimit.multiply(payment);
