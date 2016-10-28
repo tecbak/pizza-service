@@ -6,9 +6,9 @@ import ua.rd.pizzaservice.domain.Customer;
 import ua.rd.pizzaservice.domain.discount.Discount;
 import ua.rd.pizzaservice.domain.pizza.Pizza;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static java.math.BigDecimal.*;
@@ -16,21 +16,21 @@ import static ua.rd.pizzaservice.domain.order.Status.*;
 
 @Component
 @Scope(scopeName = "prototype")
-public class Order {
+public class Order implements Serializable{
     private Long id;
     private Customer customer;
     private Map<Pizza, Integer> pizzas = new HashMap<>();
     private Discount discount;
-    //    private boolean paid;
     private Status status = NEW;
 
     /*Constructor*/
     public Order() {
     }
 
-    public Order(Customer customer, List<Pizza> pizzas) {
+    public Order(Customer customer, Map<Pizza, Integer> pizzas) {
         this.customer = customer;
-        setPizzas(pizzas);
+        this.pizzas = pizzas;
+//        setPizzas(pizzas);
     }
 
     /*Getters and setters*/
@@ -50,33 +50,30 @@ public class Order {
         this.customer = customer;
     }
 
-    public Map<Pizza, Integer> getPizzas() {
+    public Map<Pizza, Integer>  getPizzas() {
+//        List<Pizza> pizzas = new ArrayList<>();
+//        for (Map.Entry<Pizza, Integer> pizzaEntry : this.pizzas.entrySet()) {
+//            for (int i = 0, n = pizzaEntry.getValue(); i < n; i++) {
+//                pizzas.add(pizzaEntry.getKey());
+//            }
+//        }
         return pizzas;
     }
 
-    public void setPizzas(List<Pizza> pizzas) {
-        for (Pizza pizza : pizzas) {
-            if (this.pizzas.containsKey(pizza)) {
-                int quantity = this.pizzas.get(pizza);
-                this.pizzas.put(pizza, quantity + 1);
-            } else {
-                this.pizzas.put(pizza, 1);
-            }
-        }
+    public void setPizzas(Map<Pizza, Integer> pizzas) {
+        this.pizzas = pizzas;
+//        for (Pizza pizza : pizzas) {
+//            if (this.pizzas.containsKey(pizza)) {
+//                int quantity = this.pizzas.get(pizza);
+//                this.pizzas.put(pizza, quantity + 1);
+//            } else {
+//                this.pizzas.put(pizza, 1);
+//            }
+//        }
     }
 
     public Status getStatus() {
         return status;
-    }
-
-    private void setStatus(Status newStatus) {
-        checkAvailableChangeTo(newStatus);
-        this.status = newStatus;
-    }
-
-    private void checkAvailableChangeTo(Status newStatus) {
-        if (!status.isAvailableChangeTo(newStatus))
-            throw new IllegalArgumentException("Can't change newStatus from " + status + " to " + newStatus);
     }
 
     public Discount getDiscount() {
@@ -101,6 +98,16 @@ public class Order {
 
     public void cancel() {
         setStatus(CANCELLED);
+    }
+
+    private void setStatus(Status newStatus) {
+        checkAvailableChangeTo(newStatus);
+        this.status = newStatus;
+    }
+
+    private void checkAvailableChangeTo(Status newStatus) {
+        if (!status.isAvailableChangeTo(newStatus))
+            throw new IllegalArgumentException("Can't change newStatus from " + status + " to " + newStatus);
     }
 
     public BigDecimal getPrice() {

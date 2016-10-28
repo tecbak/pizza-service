@@ -2,6 +2,7 @@ package ua.rd.pizzaservice.domain;
 
 import java.math.BigDecimal;
 
+
 public class Customer {
     private int id;
     private String name;
