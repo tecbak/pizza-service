@@ -1,13 +1,13 @@
 package ua.rd.pizzaservice.domain;
 
-import ua.rd.pizzaservice.domain.order.Statuses;
+import ua.rd.pizzaservice.domain.order.Status;
 import ua.rd.pizzaservice.domain.pizza.Pizza;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
-    private Statuses status = Statuses.NEW;
+    private Status status = Status.NEW;
     private List<Pizza> pizzas = new ArrayList<>();
     private Customer customer;
 

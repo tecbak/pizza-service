@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import static java.math.BigDecimal.*;
+import static ua.rd.pizzaservice.domain.order.Status.*;
 
 @Component
 @Scope(scopeName = "prototype")
@@ -20,8 +21,8 @@ public class Order {
     private Customer customer;
     private Map<Pizza, Integer> pizzas = new HashMap<>();
     private Discount discount;
-    private boolean paid;
-    private Statuses status = Statuses.NEW;
+    //    private boolean paid;
+    private Status status = NEW;
 
     /*Constructor*/
     public Order() {
@@ -64,18 +65,18 @@ public class Order {
         }
     }
 
-    public Statuses getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(Statuses status) {
-        checkAvailableChange(status);
-        this.status = status;
+    private void setStatus(Status newStatus) {
+        checkAvailableChangeTo(newStatus);
+        this.status = newStatus;
     }
 
-    private void checkAvailableChange(Statuses status) {
-        if (!this.status.isAvailableChange(status))
-            throw new IllegalArgumentException("Can't change status from " + this.status + " to " + status);
+    private void checkAvailableChangeTo(Status newStatus) {
+        if (!status.isAvailableChangeTo(newStatus))
+            throw new IllegalArgumentException("Can't change newStatus from " + status + " to " + newStatus);
     }
 
     public Discount getDiscount() {
@@ -84,6 +85,22 @@ public class Order {
 
     public void setDiscount(Discount discount) {
         this.discount = discount;
+    }
+
+    /*Methods*/
+    public void pay() {
+//        if (paid) throw new IllegalStateException("Order is already paid");
+        setStatus(IN_PROGRESS);
+        customer.depositToLoyaltyCard(getDiscountedPrice());
+//        paid = true;
+    }
+
+    public void complete() {
+        setStatus(DONE);
+    }
+
+    public void cancel() {
+        setStatus(CANCELLED);
     }
 
     public BigDecimal getPrice() {
@@ -99,12 +116,6 @@ public class Order {
         BigDecimal discountAmount =
                 discount == null ? ZERO : discount.calculate(this, price);
         return price.subtract(discountAmount);
-    }
-
-    public void pay() {
-        if (paid) throw new IllegalStateException("Order is already paid");
-        customer.depositToLoyaltyCard(getDiscountedPrice());
-        paid = true;
     }
 
     private BigDecimal totalPriceOfOneTypeOfPizza(Map.Entry<Pizza, Integer> entry) {

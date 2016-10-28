@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import ua.rd.pizzaservice.domain.order.Order;
-import ua.rd.pizzaservice.domain.order.Statuses;
+import ua.rd.pizzaservice.domain.order.Status;
 import ua.rd.pizzaservice.domain.pizza.Pizza;
 import ua.rd.pizzaservice.domain.pizza.Type;
 import ua.rd.pizzaservice.repository.InMemPizzaRepository;
@@ -64,14 +64,14 @@ public class OrderTest {
 
     @Test
     public void setStatusTest() throws Exception {
-        order.setStatus(Statuses.IN_PROGRESS);
-        order.setStatus(Statuses.DONE);
+        order.setStatus(Status.IN_PROGRESS);
+        order.setStatus(Status.DONE);
     }
 
     @Test(expected = RuntimeException.class)
     public void onSettingStatusInProgressAfterStatusCancelled_throwException() throws Exception {
-        order.setStatus(Statuses.CANCELLED);
-        order.setStatus(Statuses.IN_PROGRESS);
+        order.setStatus(Status.CANCELLED);
+        order.setStatus(Status.IN_PROGRESS);
     }
 
     @Ignore
