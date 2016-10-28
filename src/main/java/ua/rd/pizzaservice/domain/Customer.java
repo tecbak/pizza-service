@@ -1,8 +1,13 @@
 package ua.rd.pizzaservice.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Customer {
+@Entity
+public class Customer{
+    @Id
     private int id;
     private String name;
     private String address;

@@ -2,13 +2,15 @@ package ua.rd.pizzaservice.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import ua.rd.pizzaservice.domain.Customer;
-import ua.rd.pizzaservice.domain.Order;
-import ua.rd.pizzaservice.domain.Pizza;
+import ua.rd.pizzaservice.domain.order.Order;
+import ua.rd.pizzaservice.domain.pizza.Pizza;
 import ua.rd.pizzaservice.infrastructure.Benchmark;
 import ua.rd.pizzaservice.repository.OrderRepository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SimpleOrderService implements OrderService {
     private final OrderRepository orderRepository;        // = new InMemOrderRepository();
@@ -32,7 +34,7 @@ public class SimpleOrderService implements OrderService {
         }
         Order newOrder = createNewOrder();
         newOrder.setCustomer(customer);
-        newOrder.setPizzas(pizzas);
+        newOrder.setPizzas(listToMap(pizzas));
 
 //        Order newOrder = new Order(customer, pizzas);
 
@@ -56,5 +58,16 @@ public class SimpleOrderService implements OrderService {
 
     private Order saveOrder(Order newOrder) {
         return orderRepository.saveOrder(newOrder);
+    }
+
+    private <E> Map<E, Integer> listToMap(List<E> list) {
+        Map<E, Integer> map = new HashMap<>();
+        for (E element : list) {
+            if (map.containsKey(element)) {
+                int quantity = map.get(element);
+                map.put(element, quantity + 1);
+            }
+        }
+        return map;
     }
 }

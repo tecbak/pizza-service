@@ -1,10 +1,10 @@
 package ua.rd.pizzaservice.domain.discount;
 
-import ua.rd.pizzaservice.domain.Order;
+import ua.rd.pizzaservice.domain.order.Order;
 
 import java.math.BigDecimal;
 
-public class LoyaltyCardDiscount implements Discount {
+public class LoyaltyCardDiscount extends AbstractDiscount {
     private BigDecimal discountRate;  // = BigDecimal.valueOf(0.1);  //percent of amount
     private BigDecimal discountLimit; // = BigDecimal.valueOf(0.3); //percent of payment
 

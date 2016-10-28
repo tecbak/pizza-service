@@ -1,19 +1,19 @@
-package ua.rd.pizzaservice.domain;
+package ua.rd.pizzaservice.domain.order;
 
-public enum Statuses {
+public enum Status {
     DONE,
     CANCELLED,
     IN_PROGRESS(CANCELLED, DONE),
     NEW(CANCELLED, IN_PROGRESS);
 
-    private final Statuses[] availableChanges;
+    private final Status[] availableChanges;
 
-    Statuses(Statuses... availableChanges) {
+    Status(Status... availableChanges) {
         this.availableChanges = availableChanges;
     }
 
-    public boolean isAvailableChange(Statuses status) {
-        for (Statuses statusToChange : availableChanges) {
+    public boolean isAvailableChangeTo(Status status) {
+        for (Status statusToChange : availableChanges) {
             if (statusToChange.equals(status)) {
                 return true;
             }

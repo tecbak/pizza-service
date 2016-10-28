@@ -6,11 +6,12 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
-import ua.rd.pizzaservice.domain.Order;
+import ua.rd.pizzaservice.domain.order.Order;
 import ua.rd.pizzaservice.domain.Customer;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static java.math.BigDecimal.*;
 import static org.junit.Assert.*;
@@ -27,7 +28,7 @@ public class LoyaltyCardDiscountTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         discount = new LoyaltyCardDiscount(valueOf(0.1), valueOf(0.3));
-        order = new Order(customer, new ArrayList<>());
+        order = new Order(customer, new HashMap<>());
     }
 
     @Test

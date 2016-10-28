@@ -1,22 +1,21 @@
-package ua.rd.pizzaservice.domain;
+package ua.rd.pizzaservice.domain.pizza;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.TableGenerator;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
 public class Pizza {
-    //analog - sequence
-    @TableGenerator(name = "Pizza_Gen",
-            table = "ID_GEN",
-            pkColumnName = "Gen_name",
-            valueColumnName = "Gen_val",
-            initialValue = 0,
-            allocationSize = 50)
+
+//    @TableGenerator(name = "Pizza_Gen",
+//            table = "ID_GEN",
+//            pkColumnName = "Gen_name",
+//            valueColumnName = "Gen_val",
+//            initialValue = 0,
+//            allocationSize = 50) //analog - sequence
+//    @Id @GeneratedValue(generator = "Pizza_Gen")
+
     @Id
-    @GeneratedValue(generator = "Pizza_Gen")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String name;
     private BigDecimal price;

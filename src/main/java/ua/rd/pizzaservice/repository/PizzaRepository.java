@@ -1,7 +1,6 @@
 package ua.rd.pizzaservice.repository;
 
-import ua.rd.pizzaservice.domain.Pizza;
-import ua.rd.pizzaservice.infrastructure.Benchmark;
+import ua.rd.pizzaservice.domain.pizza.Pizza;
 
 public interface PizzaRepository {
     Pizza find(Integer id);

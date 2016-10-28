@@ -1,8 +1,9 @@
-package ua.rd.pizzaservice.repository;
+package ua.rd.pizzaservice.repository.jpa;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ua.rd.pizzaservice.domain.Pizza;
+import ua.rd.pizzaservice.domain.pizza.Pizza;
+import ua.rd.pizzaservice.repository.PizzaRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
