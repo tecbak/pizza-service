@@ -1,14 +1,9 @@
 package ua.rd.pizzaservice.repository;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
-import ua.rd.pizzaservice.domain.Pizza;
-import ua.rd.pizzaservice.domain.Type;
+import ua.rd.pizzaservice.domain.pizza.Pizza;
+import ua.rd.pizzaservice.domain.pizza.Type;
 
 import static org.junit.Assert.*;
 //

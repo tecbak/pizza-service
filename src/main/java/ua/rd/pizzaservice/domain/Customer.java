@@ -1,4 +1,4 @@
-package ua.rd.pizzaservice.domain.customer;
+package ua.rd.pizzaservice.domain;
 
 import java.math.BigDecimal;
 
@@ -7,7 +7,6 @@ public class Customer {
     private String name;
     private String address;
     private BigDecimal loyaltyCardBalance = BigDecimal.ZERO;
-//    private LoyaltyCard loyaltyCard = new LoyaltyCard();
 
     /*Getters and setters*/
     public int getId() {
@@ -42,13 +41,4 @@ public class Customer {
     public void depositToLoyaltyCard(BigDecimal payment) {
         loyaltyCardBalance = loyaltyCardBalance.add(payment);
     }
-
-
-//        public BigDecimal getLoyaltyCardDiscount (BigDecimal payment){
-//            return loyaltyCard.calculateDiscount(payment);
-//        }
-//
-//    public void depositToLoyaltyCard(BigDecimal payment) {
-//        loyaltyCard.deposit(payment);
-//    }
 }

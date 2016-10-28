@@ -1,4 +1,4 @@
-package ua.rd.pizzaservice.domain;
+package ua.rd.pizzaservice.domain.pizza;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

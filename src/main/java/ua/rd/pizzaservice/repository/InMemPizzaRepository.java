@@ -1,8 +1,7 @@
 package ua.rd.pizzaservice.repository;
 
-import org.springframework.stereotype.Repository;
-import ua.rd.pizzaservice.domain.Pizza;
-import ua.rd.pizzaservice.domain.Type;
+import ua.rd.pizzaservice.domain.pizza.Pizza;
+import ua.rd.pizzaservice.domain.pizza.Type;
 import ua.rd.pizzaservice.infrastructure.Benchmark;
 
 import javax.annotation.PostConstruct;

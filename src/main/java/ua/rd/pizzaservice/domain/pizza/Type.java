@@ -1,4 +1,4 @@
-package ua.rd.pizzaservice.domain;
+package ua.rd.pizzaservice.domain.pizza;
 
 public enum Type {
     VEGETARIAN(1L),

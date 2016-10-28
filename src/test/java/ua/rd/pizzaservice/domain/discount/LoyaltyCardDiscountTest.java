@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import ua.rd.pizzaservice.domain.Order;
-import ua.rd.pizzaservice.domain.customer.Customer;
+import ua.rd.pizzaservice.domain.Customer;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

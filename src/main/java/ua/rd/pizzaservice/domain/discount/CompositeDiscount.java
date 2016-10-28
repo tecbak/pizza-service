@@ -9,6 +9,9 @@ import java.util.List;
 public class CompositeDiscount implements Discount {
     private final List<Discount> discounts = new ArrayList<>();
 
+    public CompositeDiscount() {
+    }
+
     public CompositeDiscount add(Discount discount) {
         if (discount == this) {
             throw new IllegalArgumentException("Composite discount can't contains itself");

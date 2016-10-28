@@ -1,8 +1,7 @@
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ua.rd.pizzaservice.domain.Pizza;
-import ua.rd.pizzaservice.domain.Type;
-import ua.rd.pizzaservice.repository.JpaPizzaRepository;
+import ua.rd.pizzaservice.domain.pizza.Pizza;
+import ua.rd.pizzaservice.domain.pizza.Type;
 import ua.rd.pizzaservice.repository.PizzaRepository;
 
 import java.util.Arrays;
