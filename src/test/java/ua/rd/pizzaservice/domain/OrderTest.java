@@ -6,7 +6,7 @@ import org.junit.Test;
 import ua.rd.pizzaservice.domain.order.Order;
 import ua.rd.pizzaservice.domain.pizza.Pizza;
 import ua.rd.pizzaservice.domain.pizza.Type;
-import ua.rd.pizzaservice.repository.InMemPizzaRepository;
+import ua.rd.pizzaservice.repository.inmem.InMemPizzaRepository;
 import ua.rd.pizzaservice.repository.PizzaRepository;
 
 import java.math.BigDecimal;

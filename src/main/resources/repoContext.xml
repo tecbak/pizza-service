@@ -9,9 +9,9 @@
 
     <context:property-placeholder system-properties-mode="OVERRIDE" location="classpath:jdbc.properties"/>
 
-    <!--<bean name="pizzaRepository" class="ua.rd.pizzaservice.repository.InMemPizzaRepository" init-method="init"/>
+    <!--<bean name="pizzaRepository" class="ua.rd.pizzaservice.repository.inmem.InMemPizzaRepository" init-method="init"/>
 
-    <bean name="orderRepository" class="ua.rd.pizzaservice.repository.InMemOrderRepository"/>-->
+    <bean name="orderRepository" class="ua.rd.pizzaservice.repository.inmem.InMemOrderRepository"/>-->
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">

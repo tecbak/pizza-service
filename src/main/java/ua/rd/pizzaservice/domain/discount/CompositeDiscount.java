@@ -2,11 +2,12 @@ package ua.rd.pizzaservice.domain.discount;
 
 import ua.rd.pizzaservice.domain.order.Order;
 
+import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompositeDiscount implements Discount {
+public class CompositeDiscount extends AbstractDiscount {
     private final List<Discount> discounts = new ArrayList<>();
 
     /*Constructor*/

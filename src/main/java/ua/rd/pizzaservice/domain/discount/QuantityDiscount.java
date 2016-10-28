@@ -7,7 +7,8 @@ import java.math.BigDecimal;
 
 import static java.math.BigDecimal.*;
 
-public class QuantityDiscount implements Discount {
+public class QuantityDiscount extends AbstractDiscount {
+    private Long id;
     private int minQuantity; // = 4;
     private BigDecimal discountRate; // = valueOf(0.3);
 
@@ -21,6 +22,16 @@ public class QuantityDiscount implements Discount {
     }
 
     /*Getters and setters*/
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public int getMinQuantity() {
         return minQuantity;
     }

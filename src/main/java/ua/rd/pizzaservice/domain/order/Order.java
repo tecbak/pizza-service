@@ -6,6 +6,7 @@ import ua.rd.pizzaservice.domain.Customer;
 import ua.rd.pizzaservice.domain.discount.Discount;
 import ua.rd.pizzaservice.domain.pizza.Pizza;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -14,13 +15,29 @@ import java.util.Map;
 import static java.math.BigDecimal.*;
 import static ua.rd.pizzaservice.domain.order.Status.*;
 
-@Component
-@Scope(scopeName = "prototype")
-public class Order implements Serializable{
+@Component @Scope(scopeName = "prototype")
+@Entity @Table(name = "orders")
+public class Order implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", nullable = false)
     private Long id;
+
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
-    private Map<Pizza, Integer> pizzas = new HashMap<>();
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "pizzas_quantities", joinColumns = @JoinColumn(name = "order_id", nullable = false))
+    @MapKeyJoinColumn(name = "pizza_id")
+    @Column(name = "quantity", nullable = false)
+    private Map<Pizza, Integer> pizzas; //= new HashMap<>();
+
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "discount_id")
     private Discount discount;
+
+    @Enumerated(EnumType.STRING)
     private Status status = NEW;
 
     /*Constructor*/
@@ -50,7 +67,7 @@ public class Order implements Serializable{
         this.customer = customer;
     }
 
-    public Map<Pizza, Integer>  getPizzas() {
+    public Map<Pizza, Integer> getPizzas() {
 //        List<Pizza> pizzas = new ArrayList<>();
 //        for (Map.Entry<Pizza, Integer> pizzaEntry : this.pizzas.entrySet()) {
 //            for (int i = 0, n = pizzaEntry.getValue(); i < n; i++) {
