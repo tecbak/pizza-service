@@ -20,7 +20,7 @@
         &lt;!&ndash;<constructor-arg ref="pizzaRepository"/>&ndash;&gt;
     </bean>-->
 
-    <!--<bean name="order" class="ua.rd.pizzaservice.domain.Order" scope="prototype" />-->
+    <!--<bean name="order" class="ua.rd.pizzaservice.domain.order.Order" scope="prototype" />-->
 
     <!--    <bean class="ua.rd.pizzaservice.services.UsageSomeService" init-method="init">
             <constructor-arg>

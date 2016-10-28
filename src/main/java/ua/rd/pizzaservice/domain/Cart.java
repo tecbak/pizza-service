@@ -1,5 +1,6 @@
 package ua.rd.pizzaservice.domain;
 
+import ua.rd.pizzaservice.domain.order.Statuses;
 import ua.rd.pizzaservice.domain.pizza.Pizza;
 
 import java.util.ArrayList;
@@ -9,7 +10,6 @@ public class Cart {
     private Statuses status = Statuses.NEW;
     private List<Pizza> pizzas = new ArrayList<>();
     private Customer customer;
-
 
     public Cart(Customer customer) {
         this.customer = customer;

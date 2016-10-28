@@ -2,7 +2,7 @@ package ua.rd.pizzaservice.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import ua.rd.pizzaservice.domain.Customer;
-import ua.rd.pizzaservice.domain.Order;
+import ua.rd.pizzaservice.domain.order.Order;
 import ua.rd.pizzaservice.domain.pizza.Pizza;
 import ua.rd.pizzaservice.infrastructure.Benchmark;
 import ua.rd.pizzaservice.repository.OrderRepository;

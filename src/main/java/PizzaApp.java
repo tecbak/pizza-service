@@ -1,5 +1,5 @@
 import ua.rd.pizzaservice.domain.Customer;
-import ua.rd.pizzaservice.domain.Order;
+import ua.rd.pizzaservice.domain.order.Order;
 import ua.rd.pizzaservice.infrastructure.ApplicationContext;
 import ua.rd.pizzaservice.infrastructure.Context;
 import ua.rd.pizzaservice.infrastructure.JavaConfig;

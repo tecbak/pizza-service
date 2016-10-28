@@ -1,7 +1,7 @@
 package ua.rd.pizzaservice.repository;
 
 import org.springframework.stereotype.Repository;
-import ua.rd.pizzaservice.domain.Order;
+import ua.rd.pizzaservice.domain.order.Order;
 
 import java.util.ArrayList;
 import java.util.List;

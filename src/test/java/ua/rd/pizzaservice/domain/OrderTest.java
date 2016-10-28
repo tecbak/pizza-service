@@ -3,6 +3,8 @@ package ua.rd.pizzaservice.domain;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import ua.rd.pizzaservice.domain.order.Order;
+import ua.rd.pizzaservice.domain.order.Statuses;
 import ua.rd.pizzaservice.domain.pizza.Pizza;
 import ua.rd.pizzaservice.domain.pizza.Type;
 import ua.rd.pizzaservice.repository.InMemPizzaRepository;

@@ -1,7 +1,8 @@
-package ua.rd.pizzaservice.domain;
+package ua.rd.pizzaservice.domain.order;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import ua.rd.pizzaservice.domain.Customer;
 import ua.rd.pizzaservice.domain.discount.Discount;
 import ua.rd.pizzaservice.domain.pizza.Pizza;
 
@@ -15,8 +16,6 @@ import static java.math.BigDecimal.*;
 @Component
 @Scope(scopeName = "prototype")
 public class Order {
-//    private static final BigDecimal DISCOUNT_RATE = valueOf(0.3);
-
     private Long id;
     private Customer customer;
     private Map<Pizza, Integer> pizzas = new HashMap<>();
@@ -87,11 +86,6 @@ public class Order {
         this.discount = discount;
     }
 
-    /*Methods*/
-//    public BigDecimal getPriceWithTotalDiscount() {
-//        return getPrice().subtract(getTotalDiscount());
-//    }
-
     public BigDecimal getPrice() {
         BigDecimal sum = ZERO;
         for (Map.Entry<Pizza, Integer> entry : pizzas.entrySet()) {
@@ -106,23 +100,6 @@ public class Order {
                 discount == null ? ZERO : discount.calculate(this, price);
         return price.subtract(discountAmount);
     }
-
-//    public BigDecimal getTotalDiscount() {
-//        return getQuantityDiscount().add(getLoyaltyCardDiscount());
-//    }
-
-//    public BigDecimal getQuantityDiscount() {
-//        if (size() < 4) {
-//            return BigDecimal.ZERO;
-//        } else {
-//            return maxPrice().multiply(DISCOUNT_RATE);
-//        }
-//    }
-
-//    public BigDecimal getLoyaltyCardDiscount() {
-//        BigDecimal priceWithQuantityDiscount = getPrice().subtract(getQuantityDiscount());
-//        return customer.getLoyaltyCardDiscount(priceWithQuantityDiscount);
-//    }
 
     public void pay() {
         if (paid) throw new IllegalStateException("Order is already paid");
@@ -145,16 +122,6 @@ public class Order {
         }
         return size;
     }
-
-//    private BigDecimal maxPrice() {
-//        BigDecimal max = ZERO;
-//        for (Pizza pizza : pizzas.keySet()) {
-//            if (pizza.getPrice().compareTo(max) > 0) {
-//                max = pizza.getPrice();
-//            }
-//        }
-//        return max;
-//    }
 
     @Override
     public String toString() {
