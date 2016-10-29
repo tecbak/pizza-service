@@ -1,4 +1,4 @@
-package ua.rd.pizzaservice.services;
+package ua.rd.pizzaservice.services.simple;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import ua.rd.pizzaservice.domain.Customer;
@@ -6,6 +6,8 @@ import ua.rd.pizzaservice.domain.order.Order;
 import ua.rd.pizzaservice.domain.pizza.Pizza;
 import ua.rd.pizzaservice.infrastructure.Benchmark;
 import ua.rd.pizzaservice.repository.OrderRepository;
+import ua.rd.pizzaservice.services.OrderService;
+import ua.rd.pizzaservice.services.PizzaService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,12 +26,12 @@ public class SimpleOrderService implements OrderService {
 
     @Benchmark
     @Override
-    public Order placeNewOrder(Customer customer, Integer... pizzasID) {
+    public Order placeNewOrder(Customer customer, Long... pizzasID) {
         checkQuantityOfPizzas(pizzasID);
 
         List<Pizza> pizzas = new ArrayList<>();
 
-        for (Integer id : pizzasID) {
+        for (Long id : pizzasID) {
             pizzas.add(findPizzaById(id));  // get Pizza from predifined in-memory list
         }
         Order newOrder = createNewOrder();
@@ -47,17 +49,17 @@ public class SimpleOrderService implements OrderService {
 //        return context.getBean("order", Order.class);
     }
 
-    private void checkQuantityOfPizzas(Integer[] pizzasID) {
+    private void checkQuantityOfPizzas(Long[] pizzasID) {
         if (pizzasID.length < 1 || pizzasID.length > 10)
             throw new IllegalArgumentException("Quantity of pizzas must be from 1 to 10");
     }
 
-    private Pizza findPizzaById(Integer id) {
+    private Pizza findPizzaById(Long id) {
         return pizzaService.find(id);
     }
 
     private Order saveOrder(Order newOrder) {
-        return orderRepository.saveOrder(newOrder);
+        return orderRepository.save(newOrder);
     }
 
     private <E> Map<E, Integer> listToMap(List<E> list) {

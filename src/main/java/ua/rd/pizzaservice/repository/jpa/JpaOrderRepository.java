@@ -15,8 +15,13 @@ public class JpaOrderRepository implements OrderRepository {
     private EntityManager manager;
 
     @Override
+    public Order find(Long id) {
+        return manager.find(Order.class, id);
+    }
+
+    @Override
     @Transactional
-    public Order saveOrder(Order order) {
+    public Order save(Order order) {
         return manager.merge(order);
     }
 }

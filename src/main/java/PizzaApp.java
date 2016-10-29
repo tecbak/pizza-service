@@ -22,7 +22,7 @@ public class PizzaApp {
 //        pizzaRepository.find(1);
 
         OrderService orderService = context.getBean("orderService");
-        order = orderService.placeNewOrder(customer, 1, 2, 3);
+        order = orderService.placeNewOrder(customer, 1L, 2L, 3L);
         System.out.println(order);
 
 

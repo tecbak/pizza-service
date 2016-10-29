@@ -39,6 +39,7 @@ public class Order implements Serializable {
 //    @JoinColumn(name = "discount_id")
 //    private Discount discount;
 
+    @Column(name = "discount_value", nullable = false)
     private BigDecimal discountValue = ZERO;
 
     @Enumerated(EnumType.STRING)
@@ -51,7 +52,6 @@ public class Order implements Serializable {
     public Order(Customer customer, Map<Pizza, Integer> pizzas) {
         this.customer = customer;
         this.pizzas = pizzas;
-//        setPizzas(pizzas);
     }
 
     /*Getters and setters*/
@@ -72,45 +72,25 @@ public class Order implements Serializable {
     }
 
     public Map<Pizza, Integer> getPizzas() {
-//        List<Pizza> pizzas = new ArrayList<>();
-//        for (Map.Entry<Pizza, Integer> pizzaEntry : this.pizzas.entrySet()) {
-//            for (int i = 0, n = pizzaEntry.getValue(); i < n; i++) {
-//                pizzas.add(pizzaEntry.getKey());
-//            }
-//        }
         return pizzas;
     }
 
     public void setPizzas(Map<Pizza, Integer> pizzas) {
         this.pizzas = pizzas;
-//        for (Pizza pizza : pizzas) {
-//            if (this.pizzas.containsKey(pizza)) {
-//                int quantity = this.pizzas.get(pizza);
-//                this.pizzas.put(pizza, quantity + 1);
-//            } else {
-//                this.pizzas.put(pizza, 1);
-//            }
-//        }
     }
 
     public Status getStatus() {
         return status;
     }
 
-//    public Discount getDiscount() {
-//        return discount;
-//    }
-//
-//    public void setDiscount(Discount discount) {
-//        this.discount = discount;
-//    }
+    public BigDecimal getDiscountValue() {
+        return discountValue;
+    }
 
     /*Methods*/
     public void pay() {
-//        if (paid) throw new IllegalStateException("Order is already paid");
         setStatus(IN_PROGRESS);
         customer.depositToLoyaltyCard(getDiscountedPrice());
-//        paid = true;
     }
 
     public void complete() {
@@ -128,7 +108,7 @@ public class Order implements Serializable {
 
     private void checkAvailableChangeTo(Status newStatus) {
         if (!status.isAvailableChangeTo(newStatus))
-            throw new IllegalArgumentException("Can't change newStatus from " + status + " to " + newStatus);
+            throw new IllegalArgumentException("Can't change status from " + status + " to " + newStatus);
     }
 
     public BigDecimal getPrice() {

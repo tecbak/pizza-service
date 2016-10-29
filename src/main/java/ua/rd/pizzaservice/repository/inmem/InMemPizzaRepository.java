@@ -23,7 +23,7 @@ public class InMemPizzaRepository implements PizzaRepository {
 
     @Benchmark(false)
     @Override
-    public Pizza find(Integer id) {
+    public Pizza find(Long id) {
         return pizzas.get(id);
     }
 

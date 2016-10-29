@@ -1,9 +1,10 @@
-package ua.rd.pizzaservice.services;
+package ua.rd.pizzaservice.services.simple;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.rd.pizzaservice.domain.pizza.Pizza;
 import ua.rd.pizzaservice.repository.PizzaRepository;
+import ua.rd.pizzaservice.services.PizzaService;
 
 @Service
 public class SimplePizzaService implements PizzaService {
@@ -17,7 +18,7 @@ public class SimplePizzaService implements PizzaService {
     }
 
     @Override
-    public Pizza find(Integer id) {
+    public Pizza find(Long id) {
         return pizzaRepository.find(id);
     }
 }

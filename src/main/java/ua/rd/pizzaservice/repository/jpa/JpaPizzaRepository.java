@@ -15,14 +15,13 @@ public class JpaPizzaRepository implements PizzaRepository {
     private EntityManager entityManager;
 
     @Override
-    public Pizza find(Integer id) {
+    public Pizza find(Long id) {
         return entityManager.find(Pizza.class, id);
     }
 
     @Override
     @Transactional //starts transaction at the start of method and commits at its end (or rollbacks)
     public Pizza save(Pizza pizza) {
-        Pizza newPizza = entityManager.merge(pizza);
-        return newPizza;
+        return entityManager.merge(pizza);
     }
 }

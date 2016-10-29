@@ -2,8 +2,8 @@ package ua.rd.pizzaservice.infrastructure;
 
 import ua.rd.pizzaservice.repository.inmem.InMemOrderRepository;
 import ua.rd.pizzaservice.repository.inmem.InMemPizzaRepository;
-import ua.rd.pizzaservice.services.SimpleOrderService;
-import ua.rd.pizzaservice.services.SimplePizzaService;
+import ua.rd.pizzaservice.services.simple.SimpleOrderService;
+import ua.rd.pizzaservice.services.simple.SimplePizzaService;
 
 import java.util.HashMap;
 import java.util.Map;
