@@ -34,7 +34,7 @@ public class SimpleOrderService implements OrderService {
         for (Long id : pizzasID) {
             pizzas.add(findPizzaById(id));  // get Pizza from predifined in-memory list
         }
-        Order newOrder = createNewOrder();
+        Order newOrder = createNewOrder(); //new Order(); //
         newOrder.setCustomer(customer);
         newOrder.setPizzas(listToMap(pizzas));
 
@@ -68,6 +68,8 @@ public class SimpleOrderService implements OrderService {
             if (map.containsKey(element)) {
                 int quantity = map.get(element);
                 map.put(element, quantity + 1);
+            } else {
+                map.put(element, 1);
             }
         }
         return map;

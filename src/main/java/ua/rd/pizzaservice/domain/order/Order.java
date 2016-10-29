@@ -34,10 +34,6 @@ public class Order implements Serializable {
     @Column(name = "quantity", nullable = false)
     private Map<Pizza, Integer> pizzas; //= new HashMap<>();
 
-//    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-//    @JoinColumn(name = "discount_id")
-//    private Discount discount;
-
     @Column(name = "discount_value", nullable = false)
     private BigDecimal discountValue = ZERO;
 
