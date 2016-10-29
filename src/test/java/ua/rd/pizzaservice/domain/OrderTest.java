@@ -1,18 +1,15 @@
 package ua.rd.pizzaservice.domain;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
+import ua.rd.pizzaservice.domain.customer.Customer;
 import ua.rd.pizzaservice.domain.discount.Discount;
 import ua.rd.pizzaservice.domain.order.Order;
 import ua.rd.pizzaservice.domain.pizza.Pizza;
-import ua.rd.pizzaservice.domain.pizza.Type;
-import ua.rd.pizzaservice.repository.inmem.InMemPizzaRepository;
-import ua.rd.pizzaservice.repository.PizzaRepository;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

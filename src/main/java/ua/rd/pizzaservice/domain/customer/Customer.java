@@ -1,16 +1,23 @@
-package ua.rd.pizzaservice.domain;
+package ua.rd.pizzaservice.domain.customer;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.io.Serializable;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-public class Customer{
+public class Customer {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", nullable = false)
     private int id;
+
+    @Column(name = "name")
     private String name;
-    private String address;
+
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "adress_id")
+    private Address address;
+
+    @Column(name = "loyalty_card_balance", nullable = false)
     private BigDecimal loyaltyCardBalance = BigDecimal.ZERO;
 
     /*Getters and setters*/
@@ -30,11 +37,11 @@ public class Customer{
         this.name = name;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 

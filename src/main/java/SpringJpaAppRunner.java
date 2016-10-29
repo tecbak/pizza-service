@@ -1,9 +1,8 @@
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ua.rd.pizzaservice.domain.Customer;
+import ua.rd.pizzaservice.domain.customer.Customer;
 import ua.rd.pizzaservice.domain.pizza.Pizza;
 import ua.rd.pizzaservice.domain.pizza.Type;
-import ua.rd.pizzaservice.repository.OrderRepository;
 import ua.rd.pizzaservice.repository.PizzaRepository;
 import ua.rd.pizzaservice.services.OrderService;
 

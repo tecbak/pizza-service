@@ -7,10 +7,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import ua.rd.pizzaservice.domain.order.Order;
-import ua.rd.pizzaservice.domain.Customer;
+import ua.rd.pizzaservice.domain.customer.Customer;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import static java.math.BigDecimal.*;

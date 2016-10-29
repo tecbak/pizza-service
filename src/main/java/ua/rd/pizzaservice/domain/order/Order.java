@@ -2,14 +2,13 @@ package ua.rd.pizzaservice.domain.order;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import ua.rd.pizzaservice.domain.Customer;
+import ua.rd.pizzaservice.domain.customer.Customer;
 import ua.rd.pizzaservice.domain.discount.Discount;
 import ua.rd.pizzaservice.domain.pizza.Pizza;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.Map;
 
 import static java.math.BigDecimal.*;
@@ -125,9 +124,6 @@ public class Order implements Serializable {
     }
 
     public BigDecimal getDiscountedPrice() {
-//        BigDecimal price = getPrice();
-//        BigDecimal discountAmount =
-//                discount == null ? ZERO : discount.calculate(this, price);
         return getPrice().subtract(discountValue);
     }
 
