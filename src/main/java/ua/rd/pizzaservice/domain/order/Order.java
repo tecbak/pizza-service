@@ -15,8 +15,10 @@ import java.util.Map;
 import static java.math.BigDecimal.*;
 import static ua.rd.pizzaservice.domain.order.Status.*;
 
-@Component @Scope(scopeName = "prototype")
-@Entity @Table(name = "orders")
+@Component
+@Scope(scopeName = "prototype")
+@Entity
+@Table(name = "orders")
 public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -33,9 +35,11 @@ public class Order implements Serializable {
     @Column(name = "quantity", nullable = false)
     private Map<Pizza, Integer> pizzas; //= new HashMap<>();
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "discount_id")
-    private Discount discount;
+//    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+//    @JoinColumn(name = "discount_id")
+//    private Discount discount;
+
+    private BigDecimal discountValue = ZERO;
 
     @Enumerated(EnumType.STRING)
     private Status status = NEW;
@@ -93,13 +97,13 @@ public class Order implements Serializable {
         return status;
     }
 
-    public Discount getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Discount discount) {
-        this.discount = discount;
-    }
+//    public Discount getDiscount() {
+//        return discount;
+//    }
+//
+//    public void setDiscount(Discount discount) {
+//        this.discount = discount;
+//    }
 
     /*Methods*/
     public void pay() {
@@ -135,11 +139,16 @@ public class Order implements Serializable {
         return sum;
     }
 
+    public BigDecimal applyDiscount(Discount discount) {
+        discountValue = discount.calculate(this, getPrice());
+        return discountValue;
+    }
+
     public BigDecimal getDiscountedPrice() {
-        BigDecimal price = getPrice();
-        BigDecimal discountAmount =
-                discount == null ? ZERO : discount.calculate(this, price);
-        return price.subtract(discountAmount);
+//        BigDecimal price = getPrice();
+//        BigDecimal discountAmount =
+//                discount == null ? ZERO : discount.calculate(this, price);
+        return getPrice().subtract(discountValue);
     }
 
     private BigDecimal totalPriceOfOneTypeOfPizza(Map.Entry<Pizza, Integer> entry) {
