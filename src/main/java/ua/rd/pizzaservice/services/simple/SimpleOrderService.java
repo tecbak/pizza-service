@@ -19,8 +19,8 @@ import java.util.Map;
 
 @Service("simpleOrderService")
 public class SimpleOrderService implements OrderService {
-    private final OrderRepository orderRepository;        // = new InMemOrderRepository();
-    private final PizzaService pizzaService;              // = new SimplePizzaService();
+    private final OrderRepository orderRepository;
+    private final PizzaService pizzaService;
 
     @Autowired
     public SimpleOrderService(OrderRepository orderRepository, PizzaService pizzaService) {
@@ -35,18 +35,15 @@ public class SimpleOrderService implements OrderService {
         checkQuantityOfPizzas(pizzasID);
 
         List<Pizza> pizzas = new ArrayList<>();
-
         for (Long id : pizzasID) {
-            pizzas.add(findPizzaById(id));  // get Pizza from predifined in-memory list
+            pizzas.add(pizzaService.find(id));
         }
-        Order newOrder = createNewOrder(); //new Order(); //
-        newOrder.setCustomer(customer);
-        newOrder.setPizzas(listToMap(pizzas));
 
-//        Order newOrder = new Order(customer, pizzas);
+        Order order = createNewOrder();
+        order.setCustomer(customer);
+        order.setPizzas(listToMap(pizzas));
 
-        return saveOrder(newOrder);  // set Order Id and save Order to in-memory list
-//        return newOrder;
+        return orderRepository.save(order);
     }
 
     @Lookup
@@ -57,14 +54,6 @@ public class SimpleOrderService implements OrderService {
     private void checkQuantityOfPizzas(Long[] pizzasID) {
         if (pizzasID.length < 1 || pizzasID.length > 10)
             throw new IllegalArgumentException("Quantity of pizzas must be from 1 to 10");
-    }
-
-    private Pizza findPizzaById(Long id) {
-        return pizzaService.find(id);
-    }
-
-    private Order saveOrder(Order newOrder) {
-        return orderRepository.save(newOrder);
     }
 
     private <E> Map<E, Integer> listToMap(List<E> list) {
