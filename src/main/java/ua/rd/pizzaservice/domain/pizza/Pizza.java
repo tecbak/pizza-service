@@ -8,8 +8,12 @@ import java.math.BigDecimal;
 
 @Component
 @Scope(scopeName = "prototype")
+
 @Entity
 @Table(name = "pizzas")
+@NamedQueries({
+        @NamedQuery(name = "Pizza.findAll", query = "SELECT p FROM Pizza p")
+})
 public class Pizza {
 
 //    @TableGenerator(name = "Pizza_Gen",

@@ -46,6 +46,11 @@ public class SimpleOrderService implements OrderService {
         return orderRepository.save(order);
     }
 
+    @Override
+    public List<Order> findAll() {
+        return orderRepository.findAll();
+    }
+
     @Lookup
     protected Order createNewOrder() {
         throw new IllegalStateException("Container failed to save a new order");

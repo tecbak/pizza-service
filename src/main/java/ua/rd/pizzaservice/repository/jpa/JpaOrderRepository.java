@@ -7,6 +7,8 @@ import ua.rd.pizzaservice.repository.OrderRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 @Repository("jpaOrderRepository")
 public class JpaOrderRepository implements OrderRepository {
@@ -16,6 +18,12 @@ public class JpaOrderRepository implements OrderRepository {
     @Override
     public Order find(Long id) {
         return manager.find(Order.class, id);
+    }
+
+    @Override
+    public List<Order> findAll() {
+        TypedQuery<Order> query = manager.createNamedQuery("Order.findAll", Order.class);
+        return query.getResultList();
     }
 
     @Override

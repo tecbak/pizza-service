@@ -47,6 +47,10 @@ public class SpringJpaAppRunner {
 
         System.out.println(order);
 
+        for (Order order1 : orderService.findAll()) {
+            System.out.println(order1);
+        }
+
 //        PizzaRepository pizzaRepository = appContext.getBean(PizzaRepository.class, "jpaPizzaRepository");
 //
 //        Pizza pizza = new Pizza();

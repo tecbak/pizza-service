@@ -9,6 +9,8 @@ import ua.rd.pizzaservice.domain.customer.Customer;
 import ua.rd.pizzaservice.repository.CustomerRepository;
 import ua.rd.pizzaservice.services.CustomerService;
 
+import java.util.List;
+
 @Service("simpleCustomerService")
 public class SimpleCustomerService implements CustomerService {
     private CustomerRepository customerRepository;
@@ -31,6 +33,16 @@ public class SimpleCustomerService implements CustomerService {
         customer.setAddress(address);
 
         return customerRepository.save(customer);
+    }
+
+    @Override
+    public List<Customer> findAll() {
+        return customerRepository.findAll();
+    }
+
+    @Override
+    public Customer find(String name) {
+        return customerRepository.find(name);
     }
 
     @Lookup

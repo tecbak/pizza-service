@@ -8,8 +8,13 @@ import java.math.BigDecimal;
 
 @Component
 @Scope(scopeName = "prototype")
+
 @Entity
 @Table(name = "customers")
+@NamedQueries({
+        @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
+        @NamedQuery(name = "Customer.findByName", query = "SELECT c FROM Customer c WHERE c.name = :name")
+})
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

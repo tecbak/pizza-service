@@ -16,8 +16,12 @@ import static ua.rd.pizzaservice.domain.order.Status.*;
 
 @Component
 @Scope(scopeName = "prototype")
+
 @Entity
 @Table(name = "orders")
+@NamedQueries({
+        @NamedQuery(name = "Order.findAll", query = "SELECT o FROM Order o")
+})
 public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

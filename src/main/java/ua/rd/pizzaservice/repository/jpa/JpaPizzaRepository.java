@@ -1,26 +1,32 @@
 package ua.rd.pizzaservice.repository.jpa;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import ua.rd.pizzaservice.domain.pizza.Pizza;
 import ua.rd.pizzaservice.repository.PizzaRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 @Repository("jpaPizzaRepository")
 public class JpaPizzaRepository implements PizzaRepository {
     @PersistenceContext
-    private EntityManager entityManager;
+    private EntityManager manager;
 
     @Override
     public Pizza find(Long id) {
-        return entityManager.find(Pizza.class, id);
+        return manager.find(Pizza.class, id);
     }
 
     @Override
-//    @Transactional //starts transaction at the start of method and commits at its end (or rollbacks)
+    public List<Pizza> findAll() {
+        TypedQuery<Pizza> query = manager.createNamedQuery("Pizza.findAll", Pizza.class);
+        return query.getResultList();
+    }
+
+    @Override
     public Pizza save(Pizza pizza) {
-        return entityManager.merge(pizza);
+        return manager.merge(pizza);
     }
 }

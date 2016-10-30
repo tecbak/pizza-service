@@ -16,6 +16,11 @@ public class InMemOrderRepository implements OrderRepository {
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public List<Order> findAll() {
+        throw new UnsupportedOperationException();
+    }
+
     public Order save(Order order) {
         orders.add(order);
         return order;
