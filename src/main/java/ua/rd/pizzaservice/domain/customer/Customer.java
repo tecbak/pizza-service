@@ -1,9 +1,15 @@
 package ua.rd.pizzaservice.domain.customer;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Component
+@Scope(scopeName = "prototype")
 @Entity
+@Table(name = "customers")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -14,13 +20,15 @@ public class Customer {
     private String name;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "adress_id")
+    @JoinColumn(name = "address_id")
     private Address address;
 
     @Column(name = "loyalty_card_balance", nullable = false)
     private BigDecimal loyaltyCardBalance = BigDecimal.ZERO;
 
+
     /*Getters and setters*/
+
     public int getId() {
         return id;
     }
@@ -45,12 +53,24 @@ public class Customer {
         this.address = address;
     }
 
+
     /*Methods*/
+
     public BigDecimal getLoyaltyCardBalance() {
         return loyaltyCardBalance;
     }
 
     public void depositToLoyaltyCard(BigDecimal payment) {
         loyaltyCardBalance = loyaltyCardBalance.add(payment);
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address=" + address +
+                ", loyaltyCardBalance=" + loyaltyCardBalance +
+                '}';
     }
 }

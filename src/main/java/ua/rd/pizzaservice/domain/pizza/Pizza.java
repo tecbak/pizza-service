@@ -1,9 +1,15 @@
 package ua.rd.pizzaservice.domain.pizza;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Component
+@Scope(scopeName = "prototype")
 @Entity
+@Table(name = "pizzas")
 public class Pizza {
 
 //    @TableGenerator(name = "Pizza_Gen",
@@ -15,11 +21,24 @@ public class Pizza {
 //    @Id @GeneratedValue(generator = "Pizza_Gen")
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "price")
     private BigDecimal price;
+
+    @Enumerated(EnumType.STRING)
     private Type type;
+
+
+    /*Constructors*/
+
+    public Pizza() {
+    }
 
     public Pizza(Long id, String name, BigDecimal price, Type type) {
         this.id = id;
@@ -28,8 +47,8 @@ public class Pizza {
         this.type = type;
     }
 
-    public Pizza() {
-    }
+
+    /*Getters and setters*/
 
     public Long getId() {
         return id;

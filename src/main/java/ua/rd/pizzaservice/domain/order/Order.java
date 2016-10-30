@@ -32,7 +32,7 @@ public class Order implements Serializable {
     @CollectionTable(name = "pizzas_quantities", joinColumns = @JoinColumn(name = "order_id", nullable = false))
     @MapKeyJoinColumn(name = "pizza_id")
     @Column(name = "quantity", nullable = false)
-    private Map<Pizza, Integer> pizzas; //= new HashMap<>();
+    private Map<Pizza, Integer> pizzas;
 
     @Column(name = "discount_value", nullable = false)
     private BigDecimal discountValue = ZERO;

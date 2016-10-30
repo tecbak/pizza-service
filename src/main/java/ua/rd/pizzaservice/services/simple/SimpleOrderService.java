@@ -1,6 +1,9 @@
 package ua.rd.pizzaservice.services.simple;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Lookup;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.rd.pizzaservice.domain.customer.Customer;
 import ua.rd.pizzaservice.domain.order.Order;
 import ua.rd.pizzaservice.domain.pizza.Pizza;
@@ -14,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service("simpleOrderService")
 public class SimpleOrderService implements OrderService {
     private final OrderRepository orderRepository;        // = new InMemOrderRepository();
     private final PizzaService pizzaService;              // = new SimplePizzaService();
@@ -24,8 +28,9 @@ public class SimpleOrderService implements OrderService {
         this.pizzaService = pizzaService;
     }
 
-    @Benchmark
+    @Benchmark(false)
     @Override
+    @Transactional
     public Order placeNewOrder(Customer customer, Long... pizzasID) {
         checkQuantityOfPizzas(pizzasID);
 
@@ -40,13 +45,13 @@ public class SimpleOrderService implements OrderService {
 
 //        Order newOrder = new Order(customer, pizzas);
 
-        saveOrder(newOrder);  // set Order Id and save Order to in-memory list
-        return newOrder;
+        return saveOrder(newOrder);  // set Order Id and save Order to in-memory list
+//        return newOrder;
     }
 
+    @Lookup
     protected Order createNewOrder() {
-        throw new IllegalStateException("Container failed to create a new order");
-//        return context.getBean("order", Order.class);
+        throw new IllegalStateException("Container failed to save a new order");
     }
 
     private void checkQuantityOfPizzas(Long[] pizzasID) {

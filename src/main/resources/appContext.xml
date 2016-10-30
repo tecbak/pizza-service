@@ -8,11 +8,11 @@
     <context:component-scan base-package="ua.rd.pizzaservice.services"/>
     <context:component-scan base-package="ua.rd.pizzaservice.domain"/>
 
-    <bean name="orderService" class="ua.rd.pizzaservice.services.simple.SimpleOrderService">
-        <lookup-method name="createNewOrder" bean="order"/>
-        <!--<constructor-arg ref="pizzaService"/>
-        <constructor-arg ref="orderRepository"/>-->
-    </bean>
+    <!--<bean name="simpleOrderService" class="ua.rd.pizzaservice.services.simple.SimpleOrderService">-->
+        <!--<lookup-method name="createNewOrder" bean="order"/>-->
+        <!--&lt;!&ndash;<constructor-arg ref="pizzaService"/>-->
+        <!--<constructor-arg ref="orderRepository"/>&ndash;&gt;-->
+    <!--</bean>-->
 
     <bean class="ua.rd.pizzaservice.infrastructure.BenchmarkBeanPostProcessor"/>
 

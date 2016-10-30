@@ -10,7 +10,6 @@ import javax.persistence.PersistenceContext;
 
 @Repository("jpaPizzaRepository")
 public class JpaPizzaRepository implements PizzaRepository {
-
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -20,7 +19,7 @@ public class JpaPizzaRepository implements PizzaRepository {
     }
 
     @Override
-    @Transactional //starts transaction at the start of method and commits at its end (or rollbacks)
+//    @Transactional //starts transaction at the start of method and commits at its end (or rollbacks)
     public Pizza save(Pizza pizza) {
         return entityManager.merge(pizza);
     }

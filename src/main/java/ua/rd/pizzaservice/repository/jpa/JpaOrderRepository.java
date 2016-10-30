@@ -10,7 +10,6 @@ import javax.persistence.PersistenceContext;
 
 @Repository("jpaOrderRepository")
 public class JpaOrderRepository implements OrderRepository {
-
     @PersistenceContext
     private EntityManager manager;
 
@@ -20,7 +19,6 @@ public class JpaOrderRepository implements OrderRepository {
     }
 
     @Override
-    @Transactional
     public Order save(Order order) {
         return manager.merge(order);
     }
