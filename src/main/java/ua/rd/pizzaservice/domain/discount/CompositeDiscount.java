@@ -17,7 +17,7 @@ public class CompositeDiscount implements Discount {
     /*Methods*/
     public CompositeDiscount add(Discount discount) {
         if (discount == this) {
-            throw new IllegalArgumentException("Composite discount can't contains itself");
+            throw new IllegalArgumentException("Composite discount can't contain itself");
         }
         discounts.add(discount);
         return this;

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ua.rd</groupId>
-    <artifactId>PizzaService</artifactId>
+    <artifactId>pizza-service</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <build>
