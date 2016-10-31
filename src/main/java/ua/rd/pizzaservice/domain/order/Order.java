@@ -143,12 +143,25 @@ public class Order implements Serializable {
         return size;
     }
 
+//    @Override
+//    public String toString() {
+//        return "Order{" +
+//                "id=" + id +
+//                ", customer=" + customer +
+//                ", pizzas=" + pizzas +
+//                '}';
+//    }
+
+
     @Override
     public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", customer=" + customer +
-                ", pizzas=" + pizzas +
-                '}';
+        final StringBuilder sb = new StringBuilder("Order{");
+        sb.append("id=").append(id);
+        sb.append(", customer=").append(customer);
+        sb.append(", pizzas=").append(pizzas);
+        sb.append(", discountValue=").append(discountValue);
+        sb.append(", status=").append(status);
+        sb.append('}');
+        return sb.toString();
     }
 }
