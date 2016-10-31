@@ -8,6 +8,7 @@ import ua.rd.pizzaservice.repository.PizzaRepository;
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 //@Repository
@@ -23,8 +24,13 @@ public class InMemPizzaRepository implements PizzaRepository {
 
     @Benchmark(false)
     @Override
-    public Pizza find(Integer id) {
+    public Pizza find(Long id) {
         return pizzas.get(id);
+    }
+
+    @Override
+    public List<Pizza> findAll() {
+        throw new UnsupportedOperationException();
     }
 
     @Override

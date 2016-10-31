@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompositeDiscount extends AbstractDiscount {
+public class CompositeDiscount implements Discount {
     private final List<Discount> discounts = new ArrayList<>();
 
     /*Constructor*/
@@ -17,7 +17,7 @@ public class CompositeDiscount extends AbstractDiscount {
     /*Methods*/
     public CompositeDiscount add(Discount discount) {
         if (discount == this) {
-            throw new IllegalArgumentException("Composite discount can't contains itself");
+            throw new IllegalArgumentException("Composite discount can't contain itself");
         }
         discounts.add(discount);
         return this;

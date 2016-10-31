@@ -1,9 +1,19 @@
 package ua.rd.pizzaservice.domain.pizza;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Component
+@Scope(scopeName = "prototype")
+
 @Entity
+@Table(name = "pizzas")
+@NamedQueries({
+        @NamedQuery(name = "Pizza.findAll", query = "SELECT p FROM Pizza p")
+})
 public class Pizza {
 
 //    @TableGenerator(name = "Pizza_Gen",
@@ -15,11 +25,24 @@ public class Pizza {
 //    @Id @GeneratedValue(generator = "Pizza_Gen")
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "price")
     private BigDecimal price;
+
+    @Enumerated(EnumType.STRING)
     private Type type;
+
+
+    /*Constructors*/
+
+    public Pizza() {
+    }
 
     public Pizza(Long id, String name, BigDecimal price, Type type) {
         this.id = id;
@@ -28,8 +51,8 @@ public class Pizza {
         this.type = type;
     }
 
-    public Pizza() {
-    }
+
+    /*Getters and setters*/
 
     public Long getId() {
         return id;
@@ -71,5 +94,26 @@ public class Pizza {
                 ", price=" + price +
                 ", type=" + type +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Pizza pizza = (Pizza) o;
+
+        if (name != null ? !name.equals(pizza.name) : pizza.name != null) return false;
+        if (price != null ? !price.equals(pizza.price) : pizza.price != null) return false;
+        return type == pizza.type;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        return result;
     }
 }

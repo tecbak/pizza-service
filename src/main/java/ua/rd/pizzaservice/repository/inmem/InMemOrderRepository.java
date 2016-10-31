@@ -11,7 +11,17 @@ import java.util.List;
 public class InMemOrderRepository implements OrderRepository {
     private List<Order> orders = new ArrayList<>();
 
-    public Order saveOrder(Order order) {
+    @Override
+    public Order find(Long id) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<Order> findAll() {
+        throw new UnsupportedOperationException();
+    }
+
+    public Order save(Order order) {
         orders.add(order);
         return order;
     }

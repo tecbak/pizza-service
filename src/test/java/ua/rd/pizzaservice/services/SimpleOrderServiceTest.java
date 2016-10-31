@@ -6,6 +6,8 @@ import ua.rd.pizzaservice.repository.inmem.InMemOrderRepository;
 import ua.rd.pizzaservice.repository.inmem.InMemPizzaRepository;
 import ua.rd.pizzaservice.repository.OrderRepository;
 import ua.rd.pizzaservice.repository.PizzaRepository;
+import ua.rd.pizzaservice.services.simple.SimpleOrderService;
+import ua.rd.pizzaservice.services.simple.SimplePizzaService;
 
 public class SimpleOrderServiceTest {
     private PizzaRepository pizzaRepository;
@@ -22,14 +24,14 @@ public class SimpleOrderServiceTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void onQuantityOfPizzaGreaterThen10_throwNewException() throws Exception {
-        Integer[] elevenPizzas = new Integer[11];
+    public void onQuantityOfPizzaGreaterThen10_throwException() throws Exception {
+        Long[] elevenPizzas = new Long[11];
         orderService.placeNewOrder(null, elevenPizzas);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void onZeroQuantityOfPizzas_throwNewException() throws Exception {
-        Integer[] zeroPizzas = new Integer[0];
+    public void onZeroQuantityOfPizzas_throwException() throws Exception {
+        Long[] zeroPizzas = new Long[0];
         orderService.placeNewOrder(null, zeroPizzas);
     }
 

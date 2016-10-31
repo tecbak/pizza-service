@@ -3,7 +3,7 @@ package ua.rd.pizzaservice.domain.order;
 public enum Status {
     DONE,
     CANCELLED,
-    IN_PROGRESS(CANCELLED, DONE),
+    IN_PROGRESS(DONE),
     NEW(CANCELLED, IN_PROGRESS);
 
     private final Status[] availableChanges;

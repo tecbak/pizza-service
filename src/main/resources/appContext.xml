@@ -8,19 +8,19 @@
     <context:component-scan base-package="ua.rd.pizzaservice.services"/>
     <context:component-scan base-package="ua.rd.pizzaservice.domain"/>
 
-    <bean name="orderService" class="ua.rd.pizzaservice.services.SimpleOrderService">
-        <lookup-method name="createNewOrder" bean="order"/>
-        <!--<constructor-arg ref="pizzaService"/>
-        <constructor-arg ref="orderRepository"/>-->
-    </bean>
+    <!--<bean name="simpleOrderService" class="ua.rd.pizzaservice.services.simple.SimpleOrderService">-->
+        <!--<lookup-method name="createNewOrder" bean="order"/>-->
+        <!--&lt;!&ndash;<constructor-arg ref="pizzaService"/>-->
+        <!--<constructor-arg ref="orderRepository"/>&ndash;&gt;-->
+    <!--</bean>-->
 
     <bean class="ua.rd.pizzaservice.infrastructure.BenchmarkBeanPostProcessor"/>
 
-    <!--<bean name="pizzaService" class="ua.rd.pizzaservice.services.SimplePizzaService" autowire="constructor">
+    <!--<bean name="pizzaService" class="ua.rd.pizzaservice.services.simple.SimplePizzaService" autowire="constructor">
         &lt;!&ndash;<constructor-arg ref="pizzaRepository"/>&ndash;&gt;
     </bean>-->
 
-    <!--<bean name="order" class="ua.rd.pizzaservice.domain.order.Order" scope="prototype" />-->
+    <!--<bean name="order" class="ua.rd.pizzaservice.order.order.Order" scope="prototype" />-->
 
     <!--    <bean class="ua.rd.pizzaservice.services.UsageSomeService" init-method="init">
             <constructor-arg>

@@ -32,7 +32,7 @@ public class SpringAppRunner {
 
 
 //        ((SimpleOrderService)orderService).setApplicationContext(appContext);
-        Order order = orderService.placeNewOrder(null, 1, 2, 3);
+        Order order = orderService.placeNewOrder(null, 1L, 2L, 3L);
 
         System.out.println(orderService.getClass());
         System.out.println(order);

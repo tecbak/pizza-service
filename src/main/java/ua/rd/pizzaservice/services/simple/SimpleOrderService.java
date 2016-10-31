@@ -1,20 +1,26 @@
-package ua.rd.pizzaservice.services;
+package ua.rd.pizzaservice.services.simple;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import ua.rd.pizzaservice.domain.Customer;
+import org.springframework.beans.factory.annotation.Lookup;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ua.rd.pizzaservice.domain.customer.Customer;
 import ua.rd.pizzaservice.domain.order.Order;
 import ua.rd.pizzaservice.domain.pizza.Pizza;
 import ua.rd.pizzaservice.infrastructure.Benchmark;
 import ua.rd.pizzaservice.repository.OrderRepository;
+import ua.rd.pizzaservice.services.OrderService;
+import ua.rd.pizzaservice.services.PizzaService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service("simpleOrderService")
 public class SimpleOrderService implements OrderService {
-    private final OrderRepository orderRepository;        // = new InMemOrderRepository();
-    private final PizzaService pizzaService;              // = new SimplePizzaService();
+    private final OrderRepository orderRepository;
+    private final PizzaService pizzaService;
 
     @Autowired
     public SimpleOrderService(OrderRepository orderRepository, PizzaService pizzaService) {
@@ -22,42 +28,37 @@ public class SimpleOrderService implements OrderService {
         this.pizzaService = pizzaService;
     }
 
-    @Benchmark
+    @Benchmark(false)
     @Override
-    public Order placeNewOrder(Customer customer, Integer... pizzasID) {
+    @Transactional
+    public Order placeNewOrder(Customer customer, Long... pizzasID) {
         checkQuantityOfPizzas(pizzasID);
 
         List<Pizza> pizzas = new ArrayList<>();
-
-        for (Integer id : pizzasID) {
-            pizzas.add(findPizzaById(id));  // get Pizza from predifined in-memory list
+        for (Long id : pizzasID) {
+            pizzas.add(pizzaService.find(id));
         }
-        Order newOrder = createNewOrder();
-        newOrder.setCustomer(customer);
-        newOrder.setPizzas(listToMap(pizzas));
 
-//        Order newOrder = new Order(customer, pizzas);
+        Order order = createNewOrder();
+        order.setCustomer(customer);
+        order.setPizzas(listToMap(pizzas));
 
-        saveOrder(newOrder);  // set Order Id and save Order to in-memory list
-        return newOrder;
+        return orderRepository.save(order);
     }
 
+    @Override
+    public List<Order> findAll() {
+        return orderRepository.findAll();
+    }
+
+    @Lookup
     protected Order createNewOrder() {
-        throw new IllegalStateException("Container failed to create a new order");
-//        return context.getBean("order", Order.class);
+        throw new IllegalStateException("Container failed to save a new order");
     }
 
-    private void checkQuantityOfPizzas(Integer[] pizzasID) {
+    private void checkQuantityOfPizzas(Long[] pizzasID) {
         if (pizzasID.length < 1 || pizzasID.length > 10)
             throw new IllegalArgumentException("Quantity of pizzas must be from 1 to 10");
-    }
-
-    private Pizza findPizzaById(Integer id) {
-        return pizzaService.find(id);
-    }
-
-    private Order saveOrder(Order newOrder) {
-        return orderRepository.saveOrder(newOrder);
     }
 
     private <E> Map<E, Integer> listToMap(List<E> list) {
@@ -66,6 +67,8 @@ public class SimpleOrderService implements OrderService {
             if (map.containsKey(element)) {
                 int quantity = map.get(element);
                 map.put(element, quantity + 1);
+            } else {
+                map.put(element, 1);
             }
         }
         return map;
