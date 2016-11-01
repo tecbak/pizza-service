@@ -68,4 +68,25 @@ public class Address {
                 ", building='" + building + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Address address = (Address) o;
+
+        if (city != null ? !city.equals(address.city) : address.city != null) return false;
+        if (street != null ? !street.equals(address.street) : address.street != null) return false;
+        return building != null ? building.equals(address.building) : address.building == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = city != null ? city.hashCode() : 0;
+        result = 31 * result + (street != null ? street.hashCode() : 0);
+        result = 31 * result + (building != null ? building.hashCode() : 0);
+        return result;
+    }
 }

@@ -19,7 +19,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
-    private int id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -34,11 +34,11 @@ public class Customer {
 
     /*Getters and setters*/
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -77,5 +77,26 @@ public class Customer {
                 ", address=" + address +
                 ", loyaltyCardBalance=" + loyaltyCardBalance +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Customer customer = (Customer) o;
+
+        if (name != null ? !name.equals(customer.name) : customer.name != null) return false;
+        if (address != null ? !address.equals(customer.address) : customer.address != null) return false;
+        return loyaltyCardBalance != null ? loyaltyCardBalance.stripTrailingZeros().equals(customer.loyaltyCardBalance.stripTrailingZeros()) : customer.loyaltyCardBalance == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (loyaltyCardBalance != null ? loyaltyCardBalance.hashCode() : 0);
+        return result;
     }
 }
