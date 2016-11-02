@@ -16,7 +16,7 @@ public class PizzaRestController {
 
     @RequestMapping(value = "/pizza/{pizzaId}", method = RequestMethod.GET)
     public Pizza hello(@PathVariable("pizzaId") Long pizzaId) {
-        return pizzaService.find(3L);
+        return pizzaService.find(pizzaId);
 
 //        return new Pizza(1L, "sdsd", BigDecimal.valueOf(100), Type.MEAT);
 
@@ -25,10 +25,7 @@ public class PizzaRestController {
 //                "</marquee>";
     }
 
-    @RequestMapping(
-            value = "/pizza",
-            method = RequestMethod.POST
-    )
+    @RequestMapping(value = "/pizza", method = RequestMethod.POST)
     public void pizza(@RequestBody Pizza pizza) {
         System.out.println(pizza);
     }

@@ -42,9 +42,11 @@ public class Order implements Serializable {
     private BigDecimal discountValue = ZERO;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     private Status status = NEW;
 
     /*Constructor*/
+
     public Order() {
     }
 
@@ -53,7 +55,9 @@ public class Order implements Serializable {
         this.pizzas = pizzas;
     }
 
+
     /*Getters and setters*/
+
     public Long getId() {
         return id;
     }
@@ -67,7 +71,9 @@ public class Order implements Serializable {
     }
 
     public void setCustomer(Customer customer) {
+        checkChangeAvailable();
         this.customer = customer;
+        discountValue = ZERO;
     }
 
     public Map<Pizza, Integer> getPizzas() {
@@ -75,7 +81,9 @@ public class Order implements Serializable {
     }
 
     public void setPizzas(Map<Pizza, Integer> pizzas) {
+        checkChangeAvailable();
         this.pizzas = pizzas;
+        discountValue = ZERO;
     }
 
     public Status getStatus() {
@@ -86,7 +94,9 @@ public class Order implements Serializable {
         return discountValue;
     }
 
+
     /*Methods*/
+
     public void pay() {
         setStatus(IN_PROGRESS);
         customer.depositToLoyaltyCard(getDiscountedPrice());
@@ -110,6 +120,12 @@ public class Order implements Serializable {
             throw new IllegalArgumentException("Can't change status from " + status + " to " + newStatus);
     }
 
+    private void checkChangeAvailable() {
+        if (status != NEW) {
+            throw new IllegalStateException("It's possible to change only new order");
+        }
+    }
+
     public BigDecimal getPrice() {
         BigDecimal sum = ZERO;
         for (Map.Entry<Pizza, Integer> entry : pizzas.entrySet()) {
@@ -119,6 +135,7 @@ public class Order implements Serializable {
     }
 
     public BigDecimal applyDiscount(Discount discount) {
+        checkChangeAvailable();
         discountValue = discount.calculate(this, getPrice());
         return discountValue;
     }
@@ -142,16 +159,6 @@ public class Order implements Serializable {
         }
         return size;
     }
-
-//    @Override
-//    public String toString() {
-//        return "Order{" +
-//                "id=" + id +
-//                ", customer=" + customer +
-//                ", pizzas=" + pizzas +
-//                '}';
-//    }
-
 
     @Override
     public String toString() {
