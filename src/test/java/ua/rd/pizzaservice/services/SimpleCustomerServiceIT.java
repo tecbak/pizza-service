@@ -74,11 +74,17 @@ public class SimpleCustomerServiceIT extends ServiceTestConfig {
         Assert.assertEquals(customer1, customers.get(1));
     }
 
-    @Ignore
+    @Ignore()
     @Test
     public void testSave() throws Exception {
         customerService.save(customer0.getName(), address0.getCity(), address0.getStreet(), address0.getBuilding());
-        String selectCustomer = "SELECT ";
+        String selectCustomer =
+                "SELECT c.name,  a.city, a.city, a.building " +
+                        "FROM customers c " +
+                        "JOIN addresses a " +
+                        "ON c.address_id = a.id";
+
         Customer actual = (Customer) jdbcTemplate.queryForObject(selectCustomer, new Object[]{customer0.getName()}, new CustomerRowMapper());
+        System.out.println(actual);
     }
 }

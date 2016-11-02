@@ -1,19 +1,13 @@
 package ua.rd.pizzaservice.web.infrastructure;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ua.rd.pizzaservice.services.PizzaService;
-import ua.rd.pizzaservice.services.simple.SimplePizzaService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
 public class DispatcherServlet extends HttpServlet {
 
@@ -75,14 +69,16 @@ public class DispatcherServlet extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String url = request.getRequestURI();
-        String controllerName = getControllerName(url);
+//        String url = request.getRequestURI();
+//        String controllerName = getControllerName(url);
 
+
+        HandlerMapping handlerMapping = webContext.getBean("handlerMappingStrategy", HandlerMapping.class); // new SimpleUrlHandlerMapping(webContext);
 //        try (PrintWriter writer = response.getWriter()) {
 //            writer.println("Hello");
 //        }
 
-        MyController controller = webContext.getBean(controllerName, MyController.class); //new HelloController(); //getController(controllerName);
+        MyController controller = handlerMapping.getController(request);  //webContext.getBean(controllerName, MyController.class); //new HelloController(); //getController(controllerName);
         if (controller != null) {
             controller.handleRequest(request, response);
         }
@@ -96,7 +92,7 @@ public class DispatcherServlet extends HttpServlet {
     @Override
     public void destroy() {
         webContext.close();
-        for (int i = applicationContexts.length -1; i >=0 ; i++) {
+        for (int i = applicationContexts.length - 1; i >= 0; i++) {
             applicationContexts[i].close();
         }
     }

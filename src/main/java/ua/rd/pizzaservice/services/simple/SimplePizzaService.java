@@ -9,6 +9,7 @@ import ua.rd.pizzaservice.domain.pizza.Type;
 import ua.rd.pizzaservice.repository.PizzaRepository;
 import ua.rd.pizzaservice.services.PizzaService;
 
+import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 
 @Service("simplePizzaService")
@@ -34,6 +35,13 @@ public class SimplePizzaService implements PizzaService {
         pizza.setType(type);
 
         return pizzaRepository.save(pizza);
+    }
+
+//    @PostConstruct
+    public void init() {
+        save("Vegetarian", BigDecimal.valueOf(60), Type.VEGETARIAN);
+        save("Meat", BigDecimal.valueOf(80), Type.MEAT);
+        save("Sea", BigDecimal.valueOf(100), Type.SEA);
     }
 
     @Lookup
