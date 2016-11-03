@@ -37,7 +37,13 @@ public class SimplePizzaService implements PizzaService {
         return pizzaRepository.save(pizza);
     }
 
-//    @PostConstruct
+    @Override
+    @Transactional
+    public Pizza save(Pizza pizza) {
+        return pizzaRepository.save(pizza);
+    }
+
+    //    @PostConstruct
     public void init() {
         save("Vegetarian", BigDecimal.valueOf(60), Type.VEGETARIAN);
         save("Meat", BigDecimal.valueOf(80), Type.MEAT);
@@ -46,6 +52,6 @@ public class SimplePizzaService implements PizzaService {
 
     @Lookup
     protected Pizza createNewPizza() {
-        throw new IllegalStateException("Container failed to create a new pizza");
+        throw new IllegalStateException("Container failed to create a new save");
     }
 }

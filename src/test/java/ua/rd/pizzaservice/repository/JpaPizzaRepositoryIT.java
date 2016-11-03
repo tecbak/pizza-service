@@ -23,8 +23,8 @@ public class JpaPizzaRepositoryIT extends RepositoryTestConfig {
         pizza.setName("Sea");
         pizza.setType(Type.SEA);
         pizza = pizzaRepository.save(pizza);
-        System.out.println(pizza.getId());
+        System.out.println(pizza.getPizzaId());
 
-        assertNotNull(pizza.getId());
+        assertNotNull(pizza.getPizzaId());
     }
 }

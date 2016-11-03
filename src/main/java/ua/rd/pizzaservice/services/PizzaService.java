@@ -9,4 +9,6 @@ public interface PizzaService {
     Pizza find(Long id);
 
     Pizza save(String name, BigDecimal price, Type type);
+
+    Pizza save(Pizza pizza);
 }

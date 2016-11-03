@@ -1,6 +1,7 @@
 package ua.rd.pizzaservice.domain.pizza;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.hateoas.ResourceSupport;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -14,7 +15,7 @@ import java.math.BigDecimal;
 @NamedQueries({
         @NamedQuery(name = "Pizza.findAll", query = "SELECT p FROM Pizza p")
 })
-public class Pizza {
+public class Pizza extends ResourceSupport{
 
 //    @TableGenerator(name = "Pizza_Gen",
 //            table = "ID_GEN",
@@ -27,7 +28,7 @@ public class Pizza {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private Long pizzaId;
 
     @Column(name = "name")
     private String name;
@@ -44,8 +45,8 @@ public class Pizza {
     public Pizza() {
     }
 
-    public Pizza(Long id, String name, BigDecimal price, Type type) {
-        this.id = id;
+    public Pizza(Long pizzaId, String name, BigDecimal price, Type type) {
+        this.pizzaId = pizzaId;
         this.name = name;
         this.price = price;
         this.type = type;
@@ -54,12 +55,12 @@ public class Pizza {
 
     /*Getters and setters*/
 
-    public Long getId() {
-        return id;
+    public Long getPizzaId() {
+        return pizzaId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPizzaId(Long id) {
+        this.pizzaId = id;
     }
 
     public String getName() {
@@ -89,7 +90,7 @@ public class Pizza {
     @Override
     public String toString() {
         return "Pizza{" +
-                "id=" + id +
+                "id=" + pizzaId +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", type=" + type +

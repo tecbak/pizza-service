@@ -83,7 +83,7 @@ public class ApplicationContext implements Context {
         public void callInitMethod() {
             try {
                 Class<?> clazz = bean.getClass();
-                Method init = clazz.getMethod("init"); // TODO: 05-Oct-16 can't find method
+                Method init = clazz.getMethod("init"); // TODO: 05-Oct-16 can't save method
                 init.invoke(bean, null);
             } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
                 return;

@@ -19,7 +19,7 @@ public class PizzaApp {
         Context context = new ApplicationContext(new JavaConfig());
         PizzaRepository pizzaRepository = context.getBean("pizzaRepository");
 
-//        pizzaRepository.find(1);
+//        pizzaRepository.save(1);
 
         OrderService orderService = context.getBean("orderService");
         order = orderService.placeNewOrder(customer, 1L, 2L, 3L);
@@ -43,7 +43,7 @@ public class PizzaApp {
 //        Context context = new ApplicationContext(new JavaConfig());
 //
 //        PizzaRepository pizzaRepository = context.getBean("pizzaRepository");
-//        System.out.println(pizzaRepository.find(1));
+//        System.out.println(pizzaRepository.save(1));
 //
 //        OrderService orderService = context.getBean("orderService");
 //        Order order = orderService.placeNewOrder(customer, 1, 2, 3);

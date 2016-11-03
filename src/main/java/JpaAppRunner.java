@@ -13,8 +13,8 @@ public class JpaAppRunner {
         EntityTransaction transaction = manager.getTransaction();
         transaction.begin();
 
-//        Pizza pizza = new Pizza(1L, "Bavarian", BigDecimal.valueOf(100), Type.MEAT);
-//        manager.persist(pizza);
+//        Pizza save = new Pizza(1L, "Bavarian", BigDecimal.valueOf(100), Type.MEAT);
+//        manager.persist(save);
 
 
         System.out.println(manager.find(Pizza.class, 1L));

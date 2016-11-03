@@ -21,7 +21,7 @@ public class SpringAppRunner {
 //
 //
 //        PizzaRepository pizzaRepository = repoContext.getBean("pizzaRepository", PizzaRepository.class);
-//        System.out.println(pizzaRepository.find(1));
+//        System.out.println(pizzaRepository.save(1));
 //
 //        OrderRepository orderRepository = repoContext.getBean("orderRepository", OrderRepository.class);
         OrderService orderService = appContext.getBean("orderService", OrderService.class);
