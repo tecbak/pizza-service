@@ -11,6 +11,7 @@ import ua.rd.pizzaservice.services.PizzaService;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service("simplePizzaService")
 public class SimplePizzaService implements PizzaService {
@@ -24,6 +25,11 @@ public class SimplePizzaService implements PizzaService {
     @Override
     public Pizza find(Long id) {
         return pizzaRepository.find(id);
+    }
+
+    @Override
+    public List<Pizza> findAll() {
+        return pizzaRepository.findAll();
     }
 
     @Override
@@ -42,6 +48,7 @@ public class SimplePizzaService implements PizzaService {
     public Pizza save(Pizza pizza) {
         return pizzaRepository.save(pizza);
     }
+
 
     //    @PostConstruct
     public void init() {
