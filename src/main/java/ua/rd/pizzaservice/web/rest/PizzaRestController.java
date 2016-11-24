@@ -18,7 +18,9 @@ public class PizzaRestController {
     @Autowired
     private PizzaService pizzaService;
 
-    @RequestMapping(value = "/pizza/{pizzaId}", method = RequestMethod.GET)
+    @RequestMapping(
+            value = "/pizza/{pizzaId}",
+            method = RequestMethod.GET)
     public ResponseEntity<Pizza> find(@PathVariable("pizzaId") Long pizzaId) {
         Pizza pizza = pizzaService.find(pizzaId);
         if (pizza == null) {

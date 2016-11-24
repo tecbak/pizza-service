@@ -1,12 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Dmytro_Rud
-  Date: 17-Nov-16
-  Time: 11:50
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE HTML>
 <html>
 <head>
     <title>Title</title>
@@ -24,6 +18,7 @@ Hello!
             <td>
                 <form action="edit/pizza/${pizza.pizzaId}" method="post">
                     <input type="submit">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </form>
             </td>
         </tr>
@@ -33,6 +28,14 @@ Hello!
 ${message}
 <br>
 <a href="create">create</a>
+
+<p>${pageContext.request.remoteUser}</p>
+
+<c:url var="logoutUrl" value="/logout"/>
+<form class="form-inline" action="${logoutUrl}" method="post">
+    <input type="submit" value="Log out" />
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+</form>
 
 </body>
 </html>

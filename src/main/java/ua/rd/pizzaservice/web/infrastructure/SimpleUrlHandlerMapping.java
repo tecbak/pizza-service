@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationContextAware;
 import javax.servlet.http.HttpServletRequest;
 
 public class SimpleUrlHandlerMapping implements HandlerMapping, ApplicationContextAware {
-    private org.springframework.context.ApplicationContext webContext;
+    private ApplicationContext webContext;
 
 //    public SimpleUrlHandlerMapping(ApplicationContext webContext) {
 //        this.webContext = webContext;

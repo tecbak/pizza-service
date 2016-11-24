@@ -15,7 +15,6 @@ import ua.rd.pizzaservice.services.PizzaService;
 @Controller
 public class PizzaController {
 
-
     @Qualifier("simplePizzaService")
     @Autowired
     private PizzaService pizzaService;
@@ -31,7 +30,7 @@ public class PizzaController {
 
     @RequestMapping("/edit/pizza/{pizzaId}")
 //    @ResponseBody
-    public ModelAndView hello(@PathVariable(name = "pizzaId") Long pizzaId, ModelAndView mv) {
+    public ModelAndView edit(@PathVariable(name = "pizzaId") Long pizzaId, ModelAndView mv) {
         mv.setViewName("hello");
         mv.setStatus(HttpStatus.OK);
         mv.addObject("message", "you want to edit pizza #" + pizzaId);
@@ -41,6 +40,11 @@ public class PizzaController {
     @RequestMapping("/create")
     public String create() {
         return "create";
+    }
+
+    @RequestMapping("/exception")
+    public void exception() {
+        throw new NumberFormatException();
     }
 
     @RequestMapping(name = "/add/pizza", method = RequestMethod.POST)
