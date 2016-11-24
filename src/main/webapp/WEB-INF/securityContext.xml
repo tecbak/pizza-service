@@ -14,23 +14,23 @@
     <!--<form-login />-->
     <!--<logout/>-->
     <!--</http>-->
-    <!--<http/>-->
+    <http/>
 
-    <http pattern="/**">
-        <form-login/>
-        <intercept-url pattern="/app/**" access="hasRole('USER')"/>
-        <logout/>
-    </http>
+    <!--<http pattern="/**">-->
+        <!--<form-login/>-->
+        <!--<intercept-url pattern="/app/**" access="hasRole('USER')"/>-->
+        <!--<logout/>-->
+    <!--</http>-->
 
-    <!--<user-service>-->
-    <!--<user name="user" password="password" authorities="ROLE_USER"/>-->
-    <!--</user-service>-->
+    <user-service>
+    <user name="user" password="password" authorities="ROLE_USER"/>
+    </user-service>
 
-    <authentication-manager>
-        <authentication-provider ref="ua.rd.pizzaservice.web.app.CustomAuthenticationProvider"/>
-        <!--<jdbc-user-service data-source-ref="dataSource"/>-->
-        <!--</authentication-provider>-->
-    </authentication-manager>
+    <!--<authentication-manager>-->
+        <!--<authentication-provider ref="ua.rd.pizzaservice.web.app.CustomAuthenticationProvider"/>-->
+        <!--&lt;!&ndash;<jdbc-user-service data-source-ref="dataSource"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</authentication-provider>&ndash;&gt;-->
+    <!--</authentication-manager>-->
 
 </b:beans>
 

@@ -24,6 +24,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
             return authentication;
         }
+        String переменная = "dfdf";
+        переменная.equals("");
         return null;
     }
 
