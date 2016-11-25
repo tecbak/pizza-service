@@ -5,6 +5,7 @@ import org.springframework.hateoas.Link;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import ua.rd.pizzaservice.domain.pizza.Pizza;
@@ -43,6 +44,7 @@ public class PizzaRestController {
             value = "/pizza",
             method = RequestMethod.POST,
             consumes = "application/json")
+    @Secured(value = "ROLE_USER")
     public ResponseEntity<Void> save(@RequestBody Pizza pizza, UriComponentsBuilder builder) {
         System.out.println(pizza);
         Pizza p = pizzaService.save(pizza);

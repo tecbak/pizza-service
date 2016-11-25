@@ -14,22 +14,39 @@
     <!--<form-login />-->
     <!--<logout/>-->
     <!--</http>-->
-    <http/>
+    <!--<http/>-->
 
+
+    <http pattern="/app/**">
+        <intercept-url pattern="/app/loginp*" access="isAnonymous()" method="GET"/>
+        <intercept-url pattern="/**" access="hasAnyRole('USER', 'ADMIN')"/>
+        <form-login login-page="/app/loginp"
+                    always-use-default-target="true"
+                    default-target-url="/app/pizzas"
+                    login-processing-url="/app/login"/>
+        <logout logout-url="/app/logout"/>
+    </http>
+
+
+    <http pattern="/rest/**" create-session="stateless">
+        <http-basic/>
+        <intercept-url pattern="/**" access="hasRole('USER')"/>
+        <csrf disabled="true"/>
+    </http>
     <!--<http pattern="/**">-->
-        <!--<form-login/>-->
-        <!--<intercept-url pattern="/app/**" access="hasRole('USER')"/>-->
-        <!--<logout/>-->
+    <!--<form-login/>-->
+    <!--<intercept-url pattern="/app/**" access="hasRole('USER')"/>-->
+    <!--<logout/>-->
     <!--</http>-->
 
     <user-service>
-    <user name="user" password="password" authorities="ROLE_USER"/>
+        <user name="user" password="password" authorities="ROLE_USER"/>
     </user-service>
 
     <!--<authentication-manager>-->
-        <!--<authentication-provider ref="ua.rd.pizzaservice.web.app.CustomAuthenticationProvider"/>-->
-        <!--&lt;!&ndash;<jdbc-user-service data-source-ref="dataSource"/>&ndash;&gt;-->
-        <!--&lt;!&ndash;</authentication-provider>&ndash;&gt;-->
+    <!--<authentication-provider ref="ua.rd.pizzaservice.web.app.CustomAuthenticationProvider"/>-->
+    <!--&lt;!&ndash;<jdbc-user-service data-source-ref="dataSource"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;</authentication-provider>&ndash;&gt;-->
     <!--</authentication-manager>-->
 
 </b:beans>
